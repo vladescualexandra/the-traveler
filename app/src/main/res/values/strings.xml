@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">android-project</string>
+    <string name="login_username">username</string>
+    <string name="login_password">password</string>
+    <string name="login_forgot_password">Forgot password?</string>
+    <string name="login_signin">Sign in</string>
+    <string name="login_signup">Don\'t have an account yet? Sign up.</string>
+    <string name="login_error_database">Error connecting to database.</string>
+    <string name="login_error_account">This account does not exist.</string>
+    <string name="login_incorrect_password">Incorrect password.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup_username">username</string>
+    <string name="signup_email">e-mail</string>
+    <string name="signup_password">password</string>
+    <string name="signup_create">Create new account</string>
+    <string name="signup_account_created">Account created successfully.</string>
+    <string name="signup_account_failed">Invalid data.</string>
+    <string name="default_text">default</string>
+    <string name="attraction_view_maps">View in maps</string>
+</resources>
