@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
-        <activity android:name=".login.SignupActivity"/>
+        <activity android:name=".VisitedActivity"></activity>
+        <activity android:name=".FavoritesActivity" />
+        <activity android:name=".AccountActivity"/>
+        <activity
+            android:name=".NavActivity"
+            android:label="@string/title_activity_nav"
+            android:theme="@style/Theme.Androidproject.NoActionBar" />
+        <activity android:name=".login.SignupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AttractionActivity" />
         <activity android:name=".login.LoginActivity">

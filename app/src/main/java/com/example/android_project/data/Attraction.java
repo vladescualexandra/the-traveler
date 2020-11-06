@@ -1,4 +1,4 @@
-package com.example.android_project.attractions;
+package com.example.android_project.data;
 
 import java.io.Serializable;
 

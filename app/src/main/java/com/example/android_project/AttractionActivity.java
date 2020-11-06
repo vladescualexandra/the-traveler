@@ -2,16 +2,13 @@ package com.example.android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.attractions.Attraction;
-
-import org.w3c.dom.Text;
+import com.example.android_project.data.Attraction;
 
 public class AttractionActivity extends AppCompatActivity {
 
