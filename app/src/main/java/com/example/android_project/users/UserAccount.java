@@ -8,6 +8,8 @@ import java.util.List;
 
 public class UserAccount implements Serializable {
 
+    private static int counter = 0;
+    private final int id;
     private final String username;
     private final String email;
     private final String password;
@@ -15,7 +17,8 @@ public class UserAccount implements Serializable {
     private List<Attraction> visited;
 
 
-    public UserAccount(String username, String email, String password) {
+    public UserAccount(int id, String username, String email, String password) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -23,12 +26,17 @@ public class UserAccount implements Serializable {
         this.visited = new ArrayList<Attraction>();
     }
 
-    public UserAccount(String username, String email, String password, List<Attraction> favorites, List<Attraction> visited) {
+    public UserAccount(int id, String username, String email, String password, List<Attraction> favorites, List<Attraction> visited) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.favorites = favorites;
         this.visited = visited;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -45,6 +53,20 @@ public class UserAccount implements Serializable {
 
     public List<Attraction> getVisited() {
         return visited;
+    }
+
+    public static UserAccount getUserAccountByUsername(String username) {
+
+        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail", "admin");
+
+        return userFromDB;
+    }
+
+    public static UserAccount getUserAccountByID(int userID) {
+
+        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail", "admin");
+
+        return userFromDB;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.android_project;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.android_project.adapters.AttractionAdapter;
 import com.example.android_project.data.Attraction;
 import com.example.android_project.data.Attractions;
+import com.example.android_project.users.UserAccount;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -26,11 +29,24 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Attraction> attractionList;
     private ListView listViewAttractions;
+    private static final String ATTRACTION_KEY = "attraction_key";
+
+    private static Intent intent;
+    private static UserAccount user;
+    private static final String USER_KEY = "user_key";
+    private static SharedPreferences userInfo;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
 
+
+        intent = getIntent();
+        user = (UserAccount) intent.getSerializableExtra(USER_KEY);
+        SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
+        int userID = prefs.getInt(USER_KEY, -1);
 
         Attractions list = new Attractions();
         attractionList = new ArrayList<Attraction>(list.getList());
@@ -68,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putInt(USER_KEY, user.getId());
+        editor.apply();
+    }
+
     private AdapterView.OnItemClickListener displayAttractionEvent() {
         return new AdapterView.OnItemClickListener() {
             @Override
@@ -75,11 +100,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),
                         AttractionActivity.class);
 
-                intent.putExtra("ATTRACTION_KEY", attractionList.get(position));
+                intent.putExtra(ATTRACTION_KEY, attractionList.get(position));
                 startActivity(intent);
             }
         };
     }
+
+
 
 
     private void initList() {
@@ -87,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.activity_main_row_item, attractionList, getLayoutInflater());
         listViewAttractions.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        super.onBackPressed();
     }
 
     private void initComponents() {

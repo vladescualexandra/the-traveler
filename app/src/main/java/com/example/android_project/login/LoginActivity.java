@@ -1,6 +1,8 @@
 package com.example.android_project.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.MainActivity;
 import com.example.android_project.R;
+import com.example.android_project.users.UserAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.Connection;
@@ -33,14 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     String input_username;
     String input_password;
 
-    private static SQLiteDatabase database;
-    private static String TABLE_USERS = "users";
-    private static String COLUMN_USERNAME = "username";
-    private static String COLUMN_PASSWORD = "password";
-    private Connection connection = null;
-    private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
+    private static SharedPreferences userInfo;
+
+    private static final String USER_KEY = "user_key";
+    private static UserAccount user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,10 +48,37 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initComponents();
+
+        userInfo = getSharedPreferences(USER_KEY, 0);
+        int userID = userInfo.getInt(USER_KEY, -1);
+
+        if (userID > 0) {
+            user = UserAccount.getUserAccountByID(userID);
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.login_error_account),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
         signIn.setOnClickListener(signInEvent());
         signUp.setOnClickListener(signUpEvent());
 
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (user != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra(USER_KEY, user);
+            startActivity(intent);
+        }
+    }
+
 
     private View.OnClickListener signInEvent() {
 
@@ -62,8 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                 input_username = username.getText().toString().trim();
                 input_password = password.getText().toString().trim();
 
-                if (checkAccount(input_username, input_password)) {
+                if (checkAccount(input_username, input_password) > 0) {
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra(USER_KEY, user);
+
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(),
@@ -74,6 +104,16 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (user != null) {
+            userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = userInfo.edit();
+            editor.putInt(USER_KEY, user.getId());
+            editor.apply();
+        }
+    }
 
     private View.OnClickListener signUpEvent() {
         return new View.OnClickListener() {
@@ -93,35 +133,40 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkAccount(String username, String password) {
+    private int checkAccount(String username, String password) {
+        // returns the user's id if it exits,
+        // otherwise, it returns -1
         // TODO SQLite
 
-        if (connectToDatabase()) {
-            if (username.equals("admin")) { // if the username exists
+        String usernameFromDB = "admin";
+        String passwordFromDB = "admin";
 
-                if (password.equals("admin")) { // if the password is correct
-                    return true;
+        if (connectToDatabase()) {
+            if (username.equals(usernameFromDB)) { // if the username exists
+                if (password.equals(passwordFromDB)) { // if the password is correct
+                    user = UserAccount.getUserAccountByUsername(usernameFromDB);
+                    return user.getId();
                 } else { // if the password is incorrect
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.login_incorrect_password),
                             Toast.LENGTH_LONG)
                             .show();
-                    return false;
+                    return -1;
                 }
 
             } else { // the username does not exist
-                    Toast.makeText(getApplicationContext(),
-                            getString(R.string.login_error_account),
-                            Toast.LENGTH_LONG)
-                            .show();
-                    return false;
+                Toast.makeText(getApplicationContext(),
+                        getString(R.string.login_error_account),
+                        Toast.LENGTH_LONG)
+                        .show();
+                return -1;
             }
 
         } else {
             Toast.makeText(getApplicationContext(),
                     R.string.login_error_database,
                     Toast.LENGTH_LONG).show();
-            return false;
+            return -1;
         }
     }
 
@@ -129,4 +174,8 @@ public class LoginActivity extends AppCompatActivity {
         // TODO SQLite
         return true;
     }
+
+
+
+
 }
