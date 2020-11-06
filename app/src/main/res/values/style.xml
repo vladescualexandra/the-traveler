@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="theme">
+        <item name="colorPrimaryDark">@color/rose_red</item>
+        <item name="colorPrimary">@color/piggy_pink</item>
+        <item name="colorAccent">@color/french_pink</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="button">
+        <item name="backgroundTint">@color/french_pink</item>
+        <item name="android:textColor">@color/piggy_pink</item>
+        <item name="android:radius">15dp</item>
+    </style>
+
+    <style name="btn_text">
+        <item name="android:textColor">@color/french_pink</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="input">
+        <item name="backgroundTint">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/piggy_pink</item>
+        <item name="colorControlHighlight">@color/piggy_pink</item>
+        <item name="android:textColorPrimary">@color/french_pink</item>
+        <item name="android:textColorSecondary">@color/french_pink</item>
+        <item name="android:textColorHint">@color/french_pink</item>
+        <item name="colorPrimary">@color/piggy_pink</item>
+        <item name="colorAccent">@color/french_pink</item>
+    </style>
+
+    <style name="txt1">
+        <item name="android:paddingTop">50dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
+
+    <style name="txt2">
+        <item name="android:textColor">#5D737E</item>
+        <item name="android:textSize">28dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingBottom">70dp</item>
+    </style>
+
+    <style name="card">
+        <item name="android:textColor">@color/piggy_pink</item>
+        <item name="backgroundTint">@color/french_pink</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
+    <style name="setting">
+        <item name="colorPrimary">@color/piggy_pink</item>
+        <item name="colorAccent">@color/french_pink</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+</resources>

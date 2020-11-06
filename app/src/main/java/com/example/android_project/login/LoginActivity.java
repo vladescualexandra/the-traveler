@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,48 +40,26 @@ public class LoginActivity extends AppCompatActivity {
     String input_username;
     String input_password;
 
-    private static SharedPreferences userInfo;
 
     private static final String USER_KEY = "user_key";
     private static UserAccount user;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
+
         initComponents();
-
-        userInfo = getSharedPreferences(USER_KEY, 0);
-        int userID = userInfo.getInt(USER_KEY, -1);
-
-        if (userID > 0) {
-            user = UserAccount.getUserAccountByID(userID);
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    getString(R.string.login_error_account),
-                    Toast.LENGTH_SHORT).show();
-        }
-
 
 
         signIn.setOnClickListener(signInEvent());
         signUp.setOnClickListener(signUpEvent());
 
+
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (user != null) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(USER_KEY, user);
-            startActivity(intent);
-        }
-    }
-
 
     private View.OnClickListener signInEvent() {
 
@@ -93,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra(USER_KEY, user);
-
                     startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.login_error_account),
@@ -104,16 +85,17 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (user != null) {
-            userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = userInfo.edit();
-            editor.putInt(USER_KEY, user.getId());
-            editor.apply();
-        }
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if (user != null) {
+//            userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = userInfo.edit();
+//            editor.putInt(USER_KEY, user.getId());
+//            editor.apply();
+//        }
+//
+//    }
 
     private View.OnClickListener signUpEvent() {
         return new View.OnClickListener() {

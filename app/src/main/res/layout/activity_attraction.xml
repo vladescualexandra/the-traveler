@@ -25,7 +25,8 @@
         android:text="@string/default_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/text"/>
 
     <ImageView
         android:id="@+id/attraction_image"
@@ -54,7 +55,8 @@
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/attraction_image" />
+        app:layout_constraintTop_toBottomOf="@+id/attraction_image"
+        style="@style/text"/>
 
     <TextView
         android:id="@+id/attraction_maps"
@@ -68,7 +70,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/attraction_details" />
+        app:layout_constraintTop_toBottomOf="@+id/attraction_details"
+        android:textColor="@color/rose_red"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

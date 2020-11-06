@@ -38,16 +38,6 @@ public class Attractions {
                         "\n" +
                         "You have to go in to gauge the full, stupefying size of this building, paying a visit to the Museum of the Palace, Museum of Communist Totalitarianism and the National Museum of Contemporary Art.");
 
-        Attraction a3 = new Attraction("Romanian Athenaeum",
-                "banner_romanian_athenaeum",
-                "banner_romanian_athenaeum",
-                "A performance venue extraordinaire, the Neoclassical Romanian Athenaeum is the home of the George Enescu Philharmonic Orchestra.\n" +
-                        "\n" +
-                        "Wrapped in gardens, this magnificent structure was completed in 1888 and given a thorough restoration to save it from collapse in 1992. Under a grand dome embellished with gilded stuccowork, the circular concert hall seats more than 650 and has an epic fresco on its frieze that depicts the most pivotal events in Romanian history.\n" +
-                        "\n" +
-                        "For an affordable night of Haydn, Bach or Mozart, book online and pick up tickets from the box office.\n" +
-                        "\n" +
-                        "Be here in September for the George Enescu Festival, when there’s a busy programme of performances and one of Eastern Europe’s biggest classical events.");
 
         Attraction a4 = new Attraction("Lipscani (Old Town)",
                 "banner_lipscani",
@@ -71,7 +61,6 @@ public class Attractions {
 
         list.add(a1);
         list.add(a2);
-        list.add(a3);
         list.add(a4);
         list.add(a5);
 

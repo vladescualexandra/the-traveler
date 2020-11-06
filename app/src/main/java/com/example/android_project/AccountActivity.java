@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.login.LoginActivity;
 import com.example.android_project.users.UserAccount;
 
 import org.w3c.dom.Text;
@@ -31,10 +32,13 @@ public class AccountActivity extends AppCompatActivity {
     private Switch theme;
     private TextView logout;
 
+    private static final String LOGOUT_KEY = "logout_key";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_account);
 
         intent = getIntent();
@@ -55,6 +59,18 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                user = null;
+
+                userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = userInfo.edit();
+                editor.putInt(USER_KEY, -1);
+                editor.apply();
+
+                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                intent.putExtra(LOGOUT_KEY, -1);
+
+                intent.putExtra(USER_KEY, user);
+                startActivity(intent);
             }
         };
     }

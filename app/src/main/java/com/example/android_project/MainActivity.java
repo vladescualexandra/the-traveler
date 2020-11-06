@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_nav);
 
 
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
         SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
         int userID = prefs.getInt(USER_KEY, -1);
-        Log.i("USER ID", String.valueOf(userID));
 
         Attractions list = new Attractions();
         attractionList = new ArrayList<Attraction>(list.getList());

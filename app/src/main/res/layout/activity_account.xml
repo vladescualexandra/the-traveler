@@ -16,10 +16,11 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/french_pink"
+        app:cardCornerRadius="15dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,12 +36,15 @@
                 android:id="@+id/account_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_username" />
+                android:text="@string/placeholder_username"
+                android:textColor="@color/piggy_pink"
+                />
 
             <TextView
                 android:id="@+id/account_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/piggy_pink"
                 android:text="@string/placeholder_email" />
 
         </LinearLayout>
@@ -50,74 +54,80 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:stretchColumns="1"
         app:layout_constraintBottom_toTopOf="@+id/account_credits"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:stretchColumns="1">
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:paddingBottom="20dp">
 
             <TextView
+                style="@style/text"
                 android:layout_column="1"
-                android:text="@string/account_notifications"
-                android:padding="5dp" />
+                android:padding="10dp"
+                android:text="@string/account_notifications" />
+
             <Switch
                 android:id="@+id/switch_notifications"
                 android:gravity="right"
-                android:padding="5dp" />
+                android:padding="10dp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
 
             <TextView
+                style="@style/text"
                 android:layout_column="1"
-                android:text="@string/account_theme"
-                android:padding="5dp" />
+                android:padding="10dp"
+                android:text="@string/account_theme" />
+
             <Switch
                 android:id="@+id/switch_theme"
                 android:gravity="right"
-                android:padding="5dp" />
+                android:padding="10dp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/account_logout"
+                style="@style/text"
                 android:layout_column="1"
-                android:text="@string/account_logout"
-                android:padding="5dp" />
+                android:padding="10dp"
+                android:text="@string/account_logout" />
         </TableRow>
     </TableLayout>
 
 
-
     <TextView
         android:id="@+id/account_credits"
+        style="@style/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal"
         android:text="@string/account_credits"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

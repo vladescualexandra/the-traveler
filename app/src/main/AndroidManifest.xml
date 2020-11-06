@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
-        <activity android:name=".VisitedActivity"></activity>
+        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".VisitedActivity"/>
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".AccountActivity"/>
         <activity
@@ -19,7 +20,7 @@
         <activity android:name=".login.SignupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AttractionActivity" />
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

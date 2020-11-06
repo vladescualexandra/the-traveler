@@ -4,7 +4,8 @@
     <string name="login_password">password</string>
     <string name="login_forgot_password">Forgot password?</string>
     <string name="login_signin">Sign in</string>
-    <string name="login_signup">Don\'t have an account yet? Sign up.</string>
+    <string name="login_signup">Sign up.</string>
+    <string name="login_no_account">Don\'t have an account yet?</string>
     <string name="login_error_database">Error connecting to database.</string>
     <string name="login_error_account">This account does not exist.</string>
     <string name="login_incorrect_password">Incorrect password.</string>
@@ -32,8 +33,13 @@
     <string name="nav_visited">Visited</string>
     <string name="placeholder_username">placeholder_username</string>
     <string name="placeholder_email">placeholder_email</string>
-    <string name="account_credits">Project created by Vladescu Alexandra-Bianca and Stefan Codruta-Ilinca @ 2020-2021</string>
+    <string name="account_credits">Project created by Vladescu Alexandra–Bianca and Stefan Codruta-Ilinca @ 2020-2021</string>
     <string name="account_notifications">Notifications</string>
     <string name="account_theme">Theme</string>
     <string name="account_logout">Log out</string>
+    <string name="signup_signup">Sign up!</string>
+    <string name="login_txt2">Sign in to continue!</string>
+    <string name="login_txt1">Welcome,</string>
+    <string name="signup_txt1">No account?</string>
+    <string name="signup_txt2">Sign up to get started!</string>
 </resources>
