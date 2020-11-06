@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
         SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
         int userID = prefs.getInt(USER_KEY, -1);
+        Log.i("USER ID", String.valueOf(userID));
 
         Attractions list = new Attractions();
         attractionList = new ArrayList<Attraction>(list.getList());
@@ -60,26 +62,27 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
-        NavigationView navigationView=findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra(USER_KEY, user);
                 } else if (item.getItemId() == R.id.nav_account) {
-                    Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), AccountActivity.class);
+                    intent.putExtra(USER_KEY, user);
                 } else if (item.getItemId() == R.id.nav_favorites) {
-                    Intent intent = new Intent(getApplicationContext(), FavoritesActivity.class);
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), FavoritesActivity.class);
+                    intent.putExtra(USER_KEY, user);
                 } else if (item.getItemId() == R.id.nav_visited) {
-                    Intent intent = new Intent(getApplicationContext(), VisitedActivity.class);
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), VisitedActivity.class);
+                    intent.putExtra(USER_KEY, user);
                 }
-                DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
-              drawerLayout.closeDrawer(GravityCompat.START);
-              return true;
+                startActivity(intent);
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
     }
@@ -105,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
-
-
 
 
     private void initList() {
