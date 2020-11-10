@@ -8,15 +8,11 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.login.LoginActivity;
 import com.example.android_project.users.UserAccount;
-
-import org.w3c.dom.Text;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -80,13 +76,9 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(),
-                            "Dark theme.",
-                            Toast.LENGTH_SHORT).show();
+                    user.setTheme(true);
                 } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Light theme.",
-                            Toast.LENGTH_SHORT).show();
+                    user.setTheme(false);
                 }
             }
         };
@@ -97,13 +89,9 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(),
-                            "Notifications enabled.",
-                            Toast.LENGTH_SHORT).show();
+                    user.setNotifications(true);
                 } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Notifications disabled.",
-                            Toast.LENGTH_SHORT).show();
+                    user.setNotifications(false);
                 }
             }
         };
@@ -120,6 +108,15 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putInt(USER_KEY, user.getId());
+        editor.apply();
+        super.onBackPressed();
+    }
+
     private void initComponents() {
         username = findViewById(R.id.account_username);
         email = findViewById(R.id.account_email);
@@ -129,5 +126,15 @@ public class AccountActivity extends AppCompatActivity {
 
         username.setText(user.getUsername());
         email.setText(user.getEmail());
+
+        if (user.getNotifications())
+            notifications.setChecked(true);
+        else
+            notifications.setChecked(false);
+
+        if (user.getTheme())
+            theme.setChecked(true);
+        else
+            theme.setChecked(false);
     }
 }

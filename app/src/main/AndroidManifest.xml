@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android_project">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".FavoritesActivity$LoginActivity"/>
         <activity android:name=".VisitedActivity"/>
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".AccountActivity"/>
@@ -17,7 +18,7 @@
             android:name=".NavActivity"
             android:label="@string/title_activity_nav"
             android:theme="@style/Theme.Androidproject.NoActionBar" />
-        <activity android:name=".login.SignupActivity" />
+        <activity android:name=".FavoritesActivity$SignupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AttractionActivity" />
         <activity android:name=".StartActivity">

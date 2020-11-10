@@ -8,31 +8,37 @@ import java.util.List;
 
 public class UserAccount implements Serializable {
 
-    private static int counter = 0;
     private final int id;
     private final String username;
     private final String email;
-    private final String password;
     private List<Attraction> favorites;
     private List<Attraction> visited;
+    private boolean notifications;
+    // false - off
+    // true - on
+    private boolean theme;
+    // false - light
+    // true - dark
 
 
-    public UserAccount(int id, String username, String email, String password) {
+    public UserAccount(int id, String username, String email) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.favorites = new ArrayList<Attraction>();
         this.visited = new ArrayList<Attraction>();
+        this.notifications = false;
+        this.theme = false;
     }
 
-    public UserAccount(int id, String username, String email, String password, List<Attraction> favorites, List<Attraction> visited) {
+    public UserAccount(int id, String username, String email, List<Attraction> favorites, List<Attraction> visited) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.favorites = favorites;
         this.visited = visited;
+        this.notifications = false;
+        this.theme = false;
     }
 
     public int getId() {
@@ -57,16 +63,30 @@ public class UserAccount implements Serializable {
 
     public static UserAccount getUserAccountByUsername(String username) {
 
-        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail", "admin");
+        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail");
 
         return userFromDB;
     }
 
     public static UserAccount getUserAccountByID(int userID) {
 
-        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail", "admin");
-
+        UserAccount userFromDB = new UserAccount(1, "admin", "default e-mail");
         return userFromDB;
     }
 
+    public boolean getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
+    }
+
+    public boolean getTheme() {
+        return theme;
+    }
+
+    public void setTheme(boolean theme) {
+        this.theme = theme;
+    }
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Attraction implements Serializable {
 
-    private static int counter = 0;
     private int id;
     private String name;
     private String banner;
@@ -12,31 +11,16 @@ public class Attraction implements Serializable {
     private String details;
     private String coordinates;
 
-    public Attraction() {
-        this.id = counter++;
-    }
 
-
-    public Attraction(String name, String banner, String image, String details) {
-        this.name = name;
-        this.banner = banner;
-        this.image = image;
-        this.details = details;
-        this.id = counter++;
-    }
-
-    public Attraction(String name, String banner, String image, String details, String coordinates) {
+    public Attraction(int id, String name, String banner, String image, String details, String coordinates) {
+        this.id = id;
         this.name = name;
         this.banner = banner;
         this.image = image;
         this.details = details;
         this.coordinates = coordinates;
-        this.id = counter++;
     }
 
-    public static int getCounter() {
-        return counter;
-    }
 
     public int getId() {
         return id;

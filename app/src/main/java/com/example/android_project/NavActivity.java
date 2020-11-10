@@ -39,13 +39,13 @@ public class NavActivity extends AppCompatActivity {
 
         configNavigation();
         initComponents();
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
     }
 
-    private void configNavigation() {
+    public void configNavigation() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -65,12 +65,12 @@ public class NavActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
     }
 
-    private NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
+    public  NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
         return new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                
+
                 openActivityFromNavMenu(item.getItemId());
 
                 //inchidem meniul lateral
@@ -79,7 +79,7 @@ public class NavActivity extends AppCompatActivity {
             }
         };
     }
-    
+
     public void openActivityFromNavMenu(int id) {
         Intent intent = null;
 
@@ -96,7 +96,7 @@ public class NavActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), VisitedActivity.class);
             intent.putExtra(USER_KEY, user);
         }
-        
+
         startActivity(intent);
 
     }

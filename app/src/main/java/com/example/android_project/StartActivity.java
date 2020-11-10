@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.login.LoginActivity;
 import com.example.android_project.users.UserAccount;
 
 public class StartActivity extends AppCompatActivity {
@@ -32,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         if (key == -1) {
             user = null;
 
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), FavoritesActivity.LoginActivity.class);
             startActivity(intent);
 
         } else {
@@ -47,7 +45,7 @@ public class StartActivity extends AppCompatActivity {
                 intent.putExtra(USER_KEY, user);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FavoritesActivity.LoginActivity.class);
                 startActivity(intent);
             }
 
