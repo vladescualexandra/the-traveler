@@ -10,15 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
-        <activity android:name=".FavoritesActivity$LoginActivity"/>
         <activity android:name=".VisitedActivity"/>
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".AccountActivity"/>
-        <activity
-            android:name=".NavActivity"
-            android:label="@string/title_activity_nav"
-            android:theme="@style/Theme.Androidproject.NoActionBar" />
-        <activity android:name=".FavoritesActivity$SignupActivity" />
+        <activity android:name=".NavActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AttractionActivity" />
         <activity android:name=".StartActivity">

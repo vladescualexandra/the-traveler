@@ -21,7 +21,6 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_start);
 
         intent = getIntent();
@@ -30,7 +29,7 @@ public class StartActivity extends AppCompatActivity {
         if (key == -1) {
             user = null;
 
-            Intent intent = new Intent(getApplicationContext(), FavoritesActivity.LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
 
         } else {
@@ -45,7 +44,7 @@ public class StartActivity extends AppCompatActivity {
                 intent.putExtra(USER_KEY, user);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(getApplicationContext(), FavoritesActivity.LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
 

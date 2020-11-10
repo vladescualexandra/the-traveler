@@ -3,16 +3,20 @@ package com.example.android_project;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -32,27 +36,30 @@ import java.util.concurrent.Callable;
 public class MainActivity extends AppCompatActivity {
 
     private List<Attraction> attractionList = new ArrayList<>();
+    private static ProgressBar progressBar;
     private static ListView listViewAttractions;
     private static final String ATTRACTION_KEY = "attraction_key";
+    private DrawerLayout drawerLayout;
 
     private static Intent intent;
     private static UserAccount user;
     private static final String USER_KEY = "user_key";
     private static SharedPreferences userInfo;
 
+
     private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/6TKN";
-    private AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+    private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+
+    AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_nav);
 
         initComponents();
         getAttractionsFromUrl();
         setNavigationView();
-
     }
 
     private void setNavigationView() {
@@ -95,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.startAnimation(buttonClick);
                 Intent intent = new Intent(getApplicationContext(),
                         AttractionActivity.class);
 
@@ -123,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     public static void notifyAdapter() {
         ArrayAdapter adapter = (ArrayAdapter) listViewAttractions.getAdapter();
         adapter.notifyDataSetChanged();
+        listViewAttractions.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void getAttractionsFromUrl() {
@@ -154,11 +164,13 @@ public class MainActivity extends AppCompatActivity {
         if (userID >= 0) {
             user = UserAccount.getUserAccountByID(userID);
         }
+
+        progressBar = findViewById(R.id.main_progressBar);
         listViewAttractions = findViewById(R.id.main_list);
-
+        listViewAttractions.setVisibility(View.INVISIBLE);
         initList(); // add adapter
-
         listViewAttractions.setOnItemClickListener(displayAttractionEvent());
+
     }
 }
 
