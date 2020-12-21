@@ -50,8 +50,6 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
     }
 
     private void addAttractionBanner(View view, String banner) {
-
-
         if (banner != null && !banner.isEmpty()) {
             ImageView imageView = view.findViewById(R.id.main_banner);
             int resID = context.getResources().getIdentifier(banner, "drawable", context.getPackageName());

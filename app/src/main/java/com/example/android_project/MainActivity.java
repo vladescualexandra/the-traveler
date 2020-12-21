@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ import com.example.android_project.network.HttpManager;
 import com.example.android_project.users.UserAccount;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -46,11 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String USER_KEY = "user_key";
     private static SharedPreferences userInfo;
 
-
-    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/6TKN";
+    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/25J5";
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
-
-    AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,12 +102,14 @@ public class MainActivity extends AppCompatActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.startAnimation(buttonClick);
-                Intent intent = new Intent(getApplicationContext(),
+                Log.e("TEST", attractionList.get(position).getName());
+
+                Intent atr = new Intent(getApplicationContext(),
                         AttractionActivity.class);
 
-                intent.putExtra(ATTRACTION_KEY, attractionList.get(position));
-                startActivity(intent);
+//                atr.putExtra(ATTRACTION_KEY, (Serializable) attractionList.get(position));
+                atr.putExtra(ATTRACTION_KEY, (Serializable) attractionList.get(position));
+                startActivity(atr);
             }
         };
     }
@@ -125,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
         AttractionAdapter adapter = new AttractionAdapter(getApplicationContext(),
                 R.layout.activity_main_row_item, attractionList, getLayoutInflater());
         listViewAttractions.setAdapter(adapter);
+        listViewAttractions.setOnItemClickListener(displayAttractionEvent());
+
     }
 
 
     public static void notifyAdapter() {
-        ArrayAdapter adapter = (ArrayAdapter) listViewAttractions.getAdapter();
+        AttractionAdapter adapter = (AttractionAdapter) listViewAttractions.getAdapter();
         adapter.notifyDataSetChanged();
         listViewAttractions.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
@@ -169,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
         listViewAttractions = findViewById(R.id.main_list);
         listViewAttractions.setVisibility(View.INVISIBLE);
         initList(); // add adapter
-        listViewAttractions.setOnItemClickListener(displayAttractionEvent());
-
     }
+
+
 }
 

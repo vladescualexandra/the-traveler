@@ -1,6 +1,8 @@
 package com.example.android_project.async;
 
 
+import org.json.JSONException;
+
 public class HandlerMessage<R> implements Runnable {
 
     private final Callback<R> mainThreadOperation;
@@ -14,6 +16,10 @@ public class HandlerMessage<R> implements Runnable {
 
     @Override
     public void run() {
-        mainThreadOperation.runResultOnUIThread(result);
+        try {
+            mainThreadOperation.runResultOnUIThread(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

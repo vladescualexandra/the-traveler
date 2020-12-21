@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,8 @@ public class AttractionActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
         int userID = prefs.getInt(USER_KEY, -1);
+
+        Toast.makeText(getApplicationContext(), "ALO?", Toast.LENGTH_LONG);
 
         initComponents();
         initAttraction();
