@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +16,15 @@ import com.example.android_project.users.UserAccount;
 public class StartActivity extends AppCompatActivity {
 
     private static SharedPreferences userInfo;
+    private static SharedPreferences.Editor editor;
     private static Intent intent;
     private static UserAccount user;
     private static final String LOGOUT_KEY = "logout_key";
     public static final String USER_KEY = "user_key";
+    public static final String ID = "id";
+    public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
 
     public static FirebaseService firebaseService;
 
@@ -26,45 +33,23 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+
         intent = getIntent();
         firebaseService = FirebaseService.getInstance();
-        int key = intent.getIntExtra(LOGOUT_KEY, 0);
 
-        if (key == -1) {
-            user = null;
+        userInfo = getSharedPreferences(USER_KEY, MODE_PRIVATE);
+        String id = userInfo.getString(ID, null);
+        String username = userInfo.getString(USERNAME, null);
+        String email = userInfo.getString(EMAIL, null);
+        String password = userInfo.getString(PASSWORD, null);
 
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-
+        if (id == null || username == null || email == null || password == null) {
+            intent = new Intent(getApplicationContext(), LoginActivity.class);
         } else {
-
-            userInfo = getSharedPreferences(USER_KEY, 0);
-            String userID = userInfo.getString(USER_KEY, null);
-
-
-            if (userID != null) {
-
-                user = UserAccount.getUserAccountByID(userID);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra(USER_KEY, user);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra(USER_KEY, new UserAccount(id, username, email, password));
         }
-
+        startActivity(intent);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (user != null) {
-            userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = userInfo.edit();
-            editor.putString(USER_KEY, user.getId());
-            editor.apply();
-        }
-    }
 }
