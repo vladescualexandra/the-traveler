@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.android_project.Firebase.FirebaseService;
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
 import com.example.android_project.data.AttractionAdapter;
@@ -42,12 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressBar progressBar;
     private static ListView listViewAttractions;
     private static final String ATTRACTION_KEY = "attraction_key";
-    private DrawerLayout drawerLayout;
 
     private static Intent intent;
     private static UserAccount user;
     private static final String USER_KEY = "user_key";
-    private static SharedPreferences userInfo;
 
     private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/25J5";
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
@@ -63,65 +62,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNavigationView() {
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.nav_home) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                } else if (item.getItemId() == R.id.nav_account) {
-                    intent = new Intent(getApplicationContext(), AccountActivity.class);
-                } else if (item.getItemId() == R.id.nav_favorites) {
-                    intent = new Intent(getApplicationContext(), FavoritesActivity.class);
-                } else if (item.getItemId() == R.id.nav_visited) {
-                    intent = new Intent(getApplicationContext(), VisitedActivity.class);
-                }
+                intent = NavActivity.openActivityFromNavMenu(getApplicationContext(), item.getItemId());
                 intent.putExtra(USER_KEY, user);
                 startActivity(intent);
-                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString(USER_KEY, user.getId());
-        editor.apply();
-    }
-
     private AdapterView.OnItemClickListener displayAttractionEvent() {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("TEST", attractionList.get(position).getName());
 
                 Intent atr = new Intent(getApplicationContext(),
                         AttractionActivity.class);
 
-//                atr.putExtra(ATTRACTION_KEY, (Serializable) attractionList.get(position));
-                atr.putExtra(ATTRACTION_KEY, (Serializable) attractionList.get(position));
+                atr.putExtra(ATTRACTION_KEY, attractionList.get(position));
                 startActivity(atr);
             }
         };
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString(USER_KEY, user.getId());
-        editor.apply();
-    }
 
     private void initList() {
         AttractionAdapter adapter = new AttractionAdapter(getApplicationContext(),
@@ -162,13 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
         intent = getIntent();
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
-        SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
-        String userID = prefs.getString(USER_KEY, null);
-
-
-        if (userID != null) {
-            user = UserAccount.getUserAccountByID(userID);
-        }
 
         progressBar = findViewById(R.id.main_progressBar);
         listViewAttractions = findViewById(R.id.main_list);

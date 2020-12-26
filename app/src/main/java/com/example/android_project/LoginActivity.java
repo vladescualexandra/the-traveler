@@ -1,6 +1,7 @@
 package com.example.android_project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+
     EditText username;
     EditText password;
     Button signIn;
@@ -27,7 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     String input_username;
     String input_password;
 
-
+    private static SharedPreferences prefs;
+    private static SharedPreferences.Editor editor;
     private static final String USER_KEY = "user_key";
     private static UserAccount user;
 
@@ -37,20 +41,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         initComponents();
-
-
-        signIn.setOnClickListener(signInEvent());
-        signUp.setOnClickListener(signUpEvent());
-
-
     }
 
     private void login() {
         Intent intent = new Intent(getApplicationContext(),
                 MainActivity.class);
         intent.putExtra(USER_KEY, FirebaseService.user);
+
+        editor.putString(StartActivity.ID, FirebaseService.user.getId());
+        editor.putString(StartActivity.USERNAME, FirebaseService.user.getUsername());
+        editor.putString(StartActivity.EMAIL, FirebaseService.user.getEmail());
+        editor.putString(StartActivity.PASSWORD, FirebaseService.user.getPassword());
+        editor.apply();
+
         startActivity(intent);
     }
 
@@ -100,50 +104,13 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.login_password);
         signIn = findViewById(R.id.login_signIn);
         signUp = findViewById(R.id.login_signUp);
+
+        signIn.setOnClickListener(signInEvent());
+        signUp.setOnClickListener(signUpEvent());
+
+        prefs = getSharedPreferences(USER_KEY, MODE_PRIVATE);
+        editor = prefs.edit();
+
     }
-
-
-    private String checkAccount(String username, String password) {
-        // returns the user's id if it exits,
-        // otherwise, it returns -1
-        // TODO SQLite
-
-        String usernameFromDB = "admin";
-        String passwordFromDB = "admin";
-
-        if (connectToDatabase()) {
-            if (username.equals(usernameFromDB)) { // if the username exists
-                if (password.equals(passwordFromDB)) { // if the password is correct
-                    user = UserAccount.getUserAccountByUsername(usernameFromDB);
-                    return user.getId();
-                } else { // if the password is incorrect
-                    Toast.makeText(getApplicationContext(),
-                            getString(R.string.login_incorrect_password),
-                            Toast.LENGTH_LONG)
-                            .show();
-                    return null;
-                }
-
-            } else { // the username does not exist
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.login_error_account),
-                        Toast.LENGTH_LONG)
-                        .show();
-                return null;
-            }
-
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    R.string.login_error_database,
-                    Toast.LENGTH_LONG).show();
-            return null;
-        }
-    }
-
-    private boolean connectToDatabase() {
-        // TODO SQLite
-        return true;
-    }
-
 
 }

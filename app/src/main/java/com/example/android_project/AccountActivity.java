@@ -1,13 +1,14 @@
 package com.example.android_project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +18,14 @@ import com.example.android_project.users.UserAccount;
 
 public class AccountActivity extends AppCompatActivity {
 
+    public static final String SETTINGS = "settiings";
+    public static final String THEME = "theme";
+    public static final String NOTIFICATIONS = "notifications";
     private static Intent intent;
-    private static UserAccount user;
     private static final String USER_KEY = "user_key";
-    private static SharedPreferences userInfo;
+    private static SharedPreferences prefs;
+    private static SharedPreferences.Editor editor;
+    private static UserAccount user;
 
 
     private TextView username;
@@ -37,17 +42,8 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        intent = getIntent();
-        user = (UserAccount) intent.getSerializableExtra(USER_KEY);
-        SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
-        String userID = prefs.getString(USER_KEY, null);
-
-
         initComponents();
 
-        notifications.setOnCheckedChangeListener(setNotificationsEvent());
-        theme.setOnCheckedChangeListener(setThemeEvent());
-        logout.setOnClickListener(logoutEvent());
 
     }
 
@@ -56,18 +52,17 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                user = null;
                 FirebaseService.user = null;
 
-                userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = userInfo.edit();
-                editor.putString(USER_KEY, null);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                SharedPreferences userInfo = getSharedPreferences(USER_KEY, MODE_PRIVATE);
+                editor = userInfo.edit();
+                editor.putString(StartActivity.ID, null);
+                editor.putString(StartActivity.USERNAME, null);
+                editor.putString(StartActivity.EMAIL, null);
+                editor.putString(StartActivity.PASSWORD, null);
                 editor.apply();
 
-                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-                intent.putExtra(LOGOUT_KEY, -1);
-
-                intent.putExtra(USER_KEY, user);
                 startActivity(intent);
             }
         };
@@ -77,11 +72,8 @@ public class AccountActivity extends AppCompatActivity {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // TODO
-                } else {
-                    // TODO
-                }
+                editor.putBoolean(THEME, isChecked);
+                editor.apply();
             }
         };
     }
@@ -90,57 +82,36 @@ public class AccountActivity extends AppCompatActivity {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // TODO
-                } else {
-                    // TODO
-
-                }
+                editor.putBoolean(NOTIFICATIONS, isChecked);
+                editor.apply();
             }
         };
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (user != null) {
-            userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = userInfo.edit();
-            editor.putString(USER_KEY, user.getId());
-            editor.apply();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString(USER_KEY, user.getId());
-        editor.apply();
-        super.onBackPressed();
-    }
-
     private void initComponents() {
+
         username = findViewById(R.id.account_username);
         email = findViewById(R.id.account_email);
         notifications = findViewById(R.id.switch_notifications);
         theme = findViewById(R.id.switch_theme);
         logout = findViewById(R.id.account_logout);
 
+        intent = getIntent();
+        user = (UserAccount) intent.getSerializableExtra(USER_KEY);
+
         username.setText(user.getUsername());
         email.setText(user.getEmail());
 
-        // TODO
+        prefs = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        editor = prefs.edit();
 
-//        if (user.getNotifications())
-//            notifications.setChecked(true);
-//        else
-//            notifications.setChecked(false);
+        notifications.setChecked(prefs.getBoolean(NOTIFICATIONS, false));
+        theme.setChecked(prefs.getBoolean(THEME, false));
 
-        // TODO
-//        if (user.getTheme())
-//            theme.setChecked(true);
-//        else
-//            theme.setChecked(false);
+        notifications.setOnCheckedChangeListener(setNotificationsEvent());
+        theme.setOnCheckedChangeListener(setThemeEvent());
+        logout.setOnClickListener(logoutEvent());
+
+
     }
 }

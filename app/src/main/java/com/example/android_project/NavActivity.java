@@ -1,7 +1,9 @@
 package com.example.android_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -29,7 +31,6 @@ public class NavActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private static final String USER_KEY = "user_key";
-    private static UserAccount user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +66,13 @@ public class NavActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
     }
 
-    public  NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
+    public NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
         return new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                openActivityFromNavMenu(item.getItemId());
+                openActivityFromNavMenu(getApplicationContext(), item.getItemId());
 
                 //inchidem meniul lateral
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -80,24 +81,21 @@ public class NavActivity extends AppCompatActivity {
         };
     }
 
-    public void openActivityFromNavMenu(int id) {
+    public static Intent openActivityFromNavMenu(Context context, int id) {
         Intent intent = null;
 
+
         if (id == R.id.nav_home) {
-            intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(USER_KEY, user);
-        } else if (id== R.id.nav_account) {
-            intent = new Intent(getApplicationContext(), AccountActivity.class);
-            intent.putExtra(USER_KEY, user);
+            intent = new Intent(context, MainActivity.class);
+        } else if (id == R.id.nav_account) {
+            intent = new Intent(context, AccountActivity.class);
         } else if (id == R.id.nav_favorites) {
-            intent = new Intent(getApplicationContext(), FavoritesActivity.class);
-            intent.putExtra(USER_KEY, user);
+            intent = new Intent(context, FavoritesActivity.class);
         } else if (id == R.id.nav_visited) {
-            intent = new Intent(getApplicationContext(), VisitedActivity.class);
-            intent.putExtra(USER_KEY, user);
+            intent = new Intent(context, VisitedActivity.class);
         }
 
-        startActivity(intent);
+        return intent;
 
     }
 
