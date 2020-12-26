@@ -24,7 +24,8 @@ public class FavoritesActivity extends AppCompatActivity {
         intent = getIntent();
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
         SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
-        int userID = prefs.getInt(USER_KEY, -1);
+        String userID = prefs.getString(USER_KEY, null);
+
     }
 
     @Override
@@ -33,7 +34,7 @@ public class FavoritesActivity extends AppCompatActivity {
         if (user != null) {
             userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = userInfo.edit();
-            editor.putInt(USER_KEY, user.getId());
+            editor.putString(USER_KEY, user.getId());
             editor.apply();
         }
     }

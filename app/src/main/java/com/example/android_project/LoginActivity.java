@@ -52,11 +52,15 @@ public class LoginActivity extends AppCompatActivity {
                 input_username = username.getText().toString().trim();
                 input_password = password.getText().toString().trim();
 
-                if (checkAccount(input_username, input_password) > 0) {
+                if (checkAccount(input_username, input_password) != null) {
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra(USER_KEY, user);
-                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),
+                            "hi",
+                            Toast.LENGTH_LONG).show();
+
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                    intent.putExtra(USER_KEY, user);
+//                    startActivity(intent);
 
                 } else {
                     Toast.makeText(getApplicationContext(),
@@ -91,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private int checkAccount(String username, String password) {
+    private String checkAccount(String username, String password) {
         // returns the user's id if it exits,
         // otherwise, it returns -1
         // TODO SQLite
@@ -109,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                             getString(R.string.login_incorrect_password),
                             Toast.LENGTH_LONG)
                             .show();
-                    return -1;
+                    return null;
                 }
 
             } else { // the username does not exist
@@ -117,14 +121,14 @@ public class LoginActivity extends AppCompatActivity {
                         getString(R.string.login_error_account),
                         Toast.LENGTH_LONG)
                         .show();
-                return -1;
+                return null;
             }
 
         } else {
             Toast.makeText(getApplicationContext(),
                     R.string.login_error_database,
                     Toast.LENGTH_LONG).show();
-            return -1;
+            return null;
         }
     }
 

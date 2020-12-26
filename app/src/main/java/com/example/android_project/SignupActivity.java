@@ -10,11 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
+import com.example.android_project.users.UserAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignupActivity extends AppCompatActivity {
 
     Intent intent;
+    FirebaseService firebaseService;
 
     TextInputEditText username;
     TextInputEditText email;
@@ -38,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         email = findViewById(R.id.signup_email);
         password = findViewById(R.id.signup_password);
         create = findViewById(R.id.signup_create);
+        firebaseService = FirebaseService.getInstance();
     }
 
     private View.OnClickListener createAccountEvent() {
@@ -48,9 +52,11 @@ public class SignupActivity extends AppCompatActivity {
                 String input_email = email.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
-                if (true) {
+                UserAccount user = new UserAccount(null, input_username, input_email, input_password);
+
+                if (firebaseService.upsert(user)) {
                     Toast.makeText(getApplicationContext(),
-                            R.string.signup_account_created,
+                            user.getId(),
                             Toast.LENGTH_LONG)
                             .show();
 
@@ -62,8 +68,6 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG)
                             .show();
                 }
-
-                // TODO SQLite
             }
         };
     }

@@ -35,9 +35,10 @@ public class StartActivity extends AppCompatActivity {
         } else {
 
             userInfo = getSharedPreferences(USER_KEY, 0);
-            int userID = userInfo.getInt(USER_KEY, -1);
+            String userID = userInfo.getString(USER_KEY, null);
 
-            if (userID > 0) {
+
+            if (userID != null) {
 
                 user = UserAccount.getUserAccountByID(userID);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -58,7 +59,7 @@ public class StartActivity extends AppCompatActivity {
         if (user != null) {
             userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = userInfo.edit();
-            editor.putInt(USER_KEY, user.getId());
+            editor.putString(USER_KEY, user.getId());
             editor.apply();
         }
     }
