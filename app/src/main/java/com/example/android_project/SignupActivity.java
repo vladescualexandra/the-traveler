@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
+import com.example.android_project.users.UserAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignupActivity extends AppCompatActivity {
@@ -48,22 +50,32 @@ public class SignupActivity extends AppCompatActivity {
                 String input_email = email.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
-                if (true) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.signup_account_created,
-                            Toast.LENGTH_LONG)
-                            .show();
+                if (input_username.length() > 3
+                        && input_email.length() > 3
+                        && input_password.length() > 3) {
 
-                    returnToLogin();
+                    UserAccount user = new UserAccount(null, input_username, input_email, input_password);
 
+                    if (StartActivity.firebaseService.upsert(user)) {
+                        Toast.makeText(getApplicationContext(),
+                                user.getId(),
+                                Toast.LENGTH_LONG)
+                                .show();
+
+                        returnToLogin();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.signup_account_failed,
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(),
                             R.string.signup_account_failed,
                             Toast.LENGTH_LONG)
                             .show();
                 }
-
-                // TODO SQLite
             }
         };
     }

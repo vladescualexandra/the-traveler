@@ -11,7 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
+import com.example.android_project.async.Callback;
 import com.example.android_project.users.UserAccount;
+
+import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,6 +47,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void login() {
+        Intent intent = new Intent(getApplicationContext(),
+                MainActivity.class);
+        intent.putExtra(USER_KEY, FirebaseService.user);
+        startActivity(intent);
+    }
+
+
     private View.OnClickListener signInEvent() {
 
         return new View.OnClickListener() {
@@ -52,12 +64,12 @@ public class LoginActivity extends AppCompatActivity {
                 input_username = username.getText().toString().trim();
                 input_password = password.getText().toString().trim();
 
-                if (checkAccount(input_username, input_password) > 0) {
+                StartActivity.firebaseService.select(input_username, input_password);
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra(USER_KEY, user);
-                    startActivity(intent);
-
+                if (FirebaseService.user != null) {
+                    synchronized (FirebaseService.user) {
+                        login();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.login_error_account),
@@ -91,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private int checkAccount(String username, String password) {
+    private String checkAccount(String username, String password) {
         // returns the user's id if it exits,
         // otherwise, it returns -1
         // TODO SQLite
@@ -109,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                             getString(R.string.login_incorrect_password),
                             Toast.LENGTH_LONG)
                             .show();
-                    return -1;
+                    return null;
                 }
 
             } else { // the username does not exist
@@ -117,14 +129,14 @@ public class LoginActivity extends AppCompatActivity {
                         getString(R.string.login_error_account),
                         Toast.LENGTH_LONG)
                         .show();
-                return -1;
+                return null;
             }
 
         } else {
             Toast.makeText(getApplicationContext(),
                     R.string.login_error_database,
                     Toast.LENGTH_LONG).show();
-            return -1;
+            return null;
         }
     }
 
@@ -132,8 +144,6 @@ public class LoginActivity extends AppCompatActivity {
         // TODO SQLite
         return true;
     }
-
-
 
 
 }

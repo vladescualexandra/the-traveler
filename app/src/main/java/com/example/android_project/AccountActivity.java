@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
 import com.example.android_project.users.UserAccount;
 
 public class AccountActivity extends AppCompatActivity {
@@ -39,7 +40,8 @@ public class AccountActivity extends AppCompatActivity {
         intent = getIntent();
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
         SharedPreferences prefs = getSharedPreferences(USER_KEY, 0);
-        int userID = prefs.getInt(USER_KEY, -1);
+        String userID = prefs.getString(USER_KEY, null);
+
 
         initComponents();
 
@@ -55,10 +57,11 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 user = null;
-
+                FirebaseService.user = null;
+                
                 userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();
-                editor.putInt(USER_KEY, -1);
+                editor.putString(USER_KEY, null);
                 editor.apply();
 
                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);
@@ -71,13 +74,13 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private CompoundButton.OnCheckedChangeListener setThemeEvent() {
-        return  new CompoundButton.OnCheckedChangeListener() {
+        return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    user.setTheme(true);
+                    // TODO
                 } else {
-                    user.setTheme(false);
+                    // TODO
                 }
             }
         };
@@ -88,9 +91,10 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    user.setNotifications(true);
+                    // TODO
                 } else {
-                    user.setNotifications(false);
+                    // TODO
+
                 }
             }
         };
@@ -102,7 +106,7 @@ public class AccountActivity extends AppCompatActivity {
         if (user != null) {
             userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = userInfo.edit();
-            editor.putInt(USER_KEY, user.getId());
+            editor.putString(USER_KEY, user.getId());
             editor.apply();
         }
     }
@@ -111,7 +115,7 @@ public class AccountActivity extends AppCompatActivity {
     public void onBackPressed() {
         userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
-        editor.putInt(USER_KEY, user.getId());
+        editor.putString(USER_KEY, user.getId());
         editor.apply();
         super.onBackPressed();
     }
@@ -126,14 +130,17 @@ public class AccountActivity extends AppCompatActivity {
         username.setText(user.getUsername());
         email.setText(user.getEmail());
 
-        if (user.getNotifications())
-            notifications.setChecked(true);
-        else
-            notifications.setChecked(false);
+        // TODO
 
-        if (user.getTheme())
-            theme.setChecked(true);
-        else
-            theme.setChecked(false);
+//        if (user.getNotifications())
+//            notifications.setChecked(true);
+//        else
+//            notifications.setChecked(false);
+
+        // TODO
+//        if (user.getTheme())
+//            theme.setChecked(true);
+//        else
+//            theme.setChecked(false);
     }
 }
