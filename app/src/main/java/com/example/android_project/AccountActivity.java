@@ -58,7 +58,7 @@ public class AccountActivity extends AppCompatActivity {
 
                 user = null;
                 FirebaseService.user = null;
-                
+
                 userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();
                 editor.putString(USER_KEY, null);
