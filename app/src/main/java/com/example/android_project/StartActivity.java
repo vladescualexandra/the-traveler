@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
 import com.example.android_project.users.UserAccount;
 
 public class StartActivity extends AppCompatActivity {
@@ -18,12 +19,15 @@ public class StartActivity extends AppCompatActivity {
     private static final String LOGOUT_KEY = "logout_key";
     public static final String USER_KEY = "user_key";
 
+    public static FirebaseService firebaseService;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
         intent = getIntent();
+        firebaseService = FirebaseService.getInstance();
         int key = intent.getIntExtra(LOGOUT_KEY, 0);
 
         if (key == -1) {

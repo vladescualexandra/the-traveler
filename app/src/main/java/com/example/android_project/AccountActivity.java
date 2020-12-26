@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.Firebase.FirebaseService;
 import com.example.android_project.users.UserAccount;
 
 public class AccountActivity extends AppCompatActivity {
@@ -56,7 +57,8 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 user = null;
-
+                FirebaseService.user = null;
+                
                 userInfo = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();
                 editor.putString(USER_KEY, null);

@@ -17,7 +17,6 @@ import com.google.android.material.textfield.TextInputEditText;
 public class SignupActivity extends AppCompatActivity {
 
     Intent intent;
-    FirebaseService firebaseService;
 
     TextInputEditText username;
     TextInputEditText email;
@@ -41,7 +40,6 @@ public class SignupActivity extends AppCompatActivity {
         email = findViewById(R.id.signup_email);
         password = findViewById(R.id.signup_password);
         create = findViewById(R.id.signup_create);
-        firebaseService = FirebaseService.getInstance();
     }
 
     private View.OnClickListener createAccountEvent() {
@@ -52,16 +50,26 @@ public class SignupActivity extends AppCompatActivity {
                 String input_email = email.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
-                UserAccount user = new UserAccount(null, input_username, input_email, input_password);
+                if (input_username.length() > 3
+                        && input_email.length() > 3
+                        && input_password.length() > 3) {
 
-                if (firebaseService.upsert(user)) {
-                    Toast.makeText(getApplicationContext(),
-                            user.getId(),
-                            Toast.LENGTH_LONG)
-                            .show();
+                    UserAccount user = new UserAccount(null, input_username, input_email, input_password);
 
-                    returnToLogin();
+                    if (StartActivity.firebaseService.upsert(user)) {
+                        Toast.makeText(getApplicationContext(),
+                                user.getId(),
+                                Toast.LENGTH_LONG)
+                                .show();
 
+                        returnToLogin();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.signup_account_failed,
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(),
                             R.string.signup_account_failed,
