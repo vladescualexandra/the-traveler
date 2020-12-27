@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
-        <activity android:name=".AddVisitedActivity"></activity>
+        <activity android:name=".AddVisitedActivity"/>
         <activity android:name=".VisitedActivity" />
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".AccountActivity" />

@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class VisitedActivity extends AppCompatActivity {
 
 
     public static final int ADD_VISIT_REQUEST_CODE = 201;
+    private static final int UPDATE_VISIT_REQUEST_CODE = 202;
     public static List<Visit> visitList = new ArrayList<>();
     private Button addNewVisit;
     private CardView graph;
@@ -55,8 +57,11 @@ public class VisitedActivity extends AppCompatActivity {
         visitService.getAll(getAllFromDBCallback());
         addAdapter();
 
+        list.setOnItemClickListener(updateVisitEventListener());
+        list.setOnItemLongClickListener(deleteVisitEventListener());
 
     }
+
 
     private Callback<List<Visit>> getAllFromDBCallback() {
         return new Callback<List<Visit>>() {
@@ -123,6 +128,35 @@ public class VisitedActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
+    private AdapterView.OnItemClickListener updateVisitEventListener() {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), AddVisitedActivity.class);
+                intent.putExtra(AddVisitedActivity.VISIT_KEY, visitList.get(position));
+                Toast.makeText(getApplicationContext(),
+                        visitList.get(position).toString(),
+                        Toast.LENGTH_LONG).show();
+                startActivityForResult(intent, UPDATE_VISIT_REQUEST_CODE);
+            }
+        };
+    }
+
+
+    private AdapterView.OnItemLongClickListener deleteVisitEventListener() {
+        return new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "DELETE",
+                        Toast.LENGTH_LONG).show();
+                visitService.delete(visitList.get(position), deleteToDBCallback(position));
+                return true;
+            }
+        };
+    }
+
+
     private void notifyAdapter() {
         VisitAdapter adapter = (VisitAdapter) list.getAdapter();
         adapter.notifyDataSetChanged();
@@ -141,9 +175,11 @@ public class VisitedActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Visit visit = (Visit) data.getSerializableExtra(AddVisitedActivity.VISIT_KEY);
         if (resultCode == RESULT_OK && data != null) {
-            Visit visit = (Visit) data.getSerializableExtra(AddVisitedActivity.VISIT_KEY);
             visitService.insert(visit, insertIntoDBCallback());
+        } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
+            visitService.update(visit, updateToDBCallback());
         }
     }
 }

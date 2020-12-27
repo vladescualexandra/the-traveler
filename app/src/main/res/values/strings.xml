@@ -46,4 +46,5 @@
     <string name="add_new_visit_button">Add</string>
     <string name="visited_edit">Edit</string>
     <string name="visited_delete">Delete</string>
+    <string name="add_visit_save">SAVE</string>
 </resources>

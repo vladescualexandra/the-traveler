@@ -3,61 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="8sp">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/visited_row_item_attraction"
+        style="@style/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8sp">
+        android:maxLines="2"
+        android:padding="4sp"
+        android:text="@string/default_text" />
 
-        <TextView
-            android:id="@+id/visited_row_item_attraction"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:padding="4sp"
-            android:maxLines="2"
-            android:text="@string/default_text"
-            style="@style/text"/>
-
-        <TextView
-            android:id="@+id/visited_row_item_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4sp"
-            android:text="@string/default_text"
-            style="@style/text"/>
-
-        <RatingBar
-            android:id="@+id/visited_row_item_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:isIndicator="true"
-            android:layout_marginTop="8sp"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-           />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/visited_row_item_date"
+        style="@style/text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8sp">
+        android:padding="4sp"
+        android:text="@string/default_text" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/visited_edit"
-            android:layout_gravity="end"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/visited_delete"
-            android:layout_gravity="end"/>
-
-    </LinearLayout>
-
+    <RatingBar
+        android:id="@+id/visited_row_item_rating"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:isIndicator="true"
+        android:numStars="5" />
 </LinearLayout>
+
+
