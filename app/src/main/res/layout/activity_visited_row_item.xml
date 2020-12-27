@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8sp">
+
+        <TextView
+            android:id="@+id/visited_row_item_attraction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4sp"
+            android:text="@string/default_text"
+            style="@style/text"/>
+
+        <TextView
+            android:id="@+id/visited_row_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4sp"
+            android:text="@string/default_text"
+            style="@style/text"/>
+
+        <RatingBar
+            android:id="@+id/visited_row_item_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:layout_marginTop="8sp"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+           />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8sp"
+
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/visited_edit"
+            android:layout_gravity="end"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/visited_delete"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,16 +1,13 @@
 package com.example.android_project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.Firebase.FirebaseService;
+import com.example.android_project.databases.FirebaseService;
 import com.example.android_project.users.UserAccount;
 
 public class StartActivity extends AppCompatActivity {

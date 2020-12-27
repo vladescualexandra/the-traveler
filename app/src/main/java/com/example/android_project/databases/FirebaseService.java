@@ -1,7 +1,4 @@
-package com.example.android_project.Firebase;
-
-import android.telecom.Call;
-import android.util.Log;
+package com.example.android_project.databases;
 
 import androidx.annotation.NonNull;
 
@@ -12,8 +9,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONException;
 
 public class FirebaseService {
 
