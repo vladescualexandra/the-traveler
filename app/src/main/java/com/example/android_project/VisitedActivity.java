@@ -26,7 +26,7 @@ public class VisitedActivity extends AppCompatActivity {
 
 
     public static final int ADD_VISIT_REQUEST_CODE = 201;
-    private static final int UPDATE_VISIT_REQUEST_CODE = 202;
+    private static final int UPDATE_VISIT_REQUEST_CODE = 300;
     public static List<Visit> visitList = new ArrayList<>();
     private Button addNewVisit;
     private CardView graph;
@@ -134,9 +134,6 @@ public class VisitedActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), AddVisitedActivity.class);
                 intent.putExtra(AddVisitedActivity.VISIT_KEY, visitList.get(position));
-                Toast.makeText(getApplicationContext(),
-                        visitList.get(position).toString(),
-                        Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, UPDATE_VISIT_REQUEST_CODE);
             }
         };
@@ -177,9 +174,11 @@ public class VisitedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Visit visit = (Visit) data.getSerializableExtra(AddVisitedActivity.VISIT_KEY);
         if (resultCode == RESULT_OK && data != null) {
-            visitService.insert(visit, insertIntoDBCallback());
-        } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
-            visitService.update(visit, updateToDBCallback());
+            if (requestCode == ADD_VISIT_REQUEST_CODE) {
+                visitService.insert(visit, insertIntoDBCallback());
+            } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
+                visitService.update(visit, updateToDBCallback());
+            }
         }
     }
 }

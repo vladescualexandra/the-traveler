@@ -2,7 +2,6 @@ package com.example.android_project.databases.service;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
@@ -41,8 +40,8 @@ public class VisitService {
                     return null;
                 } else {
                     long id = visitDao.insert(visit);
+                    Log.e("id", String.valueOf(id));
                     if (id == -1) {
-                        Log.e("Error", "VisitService - insert - call");
                         return null;
                     } else {
                         visit.setId(id);

@@ -39,38 +39,33 @@ public class AddVisitedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_visited);
 
         intent = getIntent();
+        initComponents();
 
         if (intent.hasExtra(VISIT_KEY)) {
             visit = (Visit) intent.getSerializableExtra(VISIT_KEY);
-//            buildViews(visit);
-            Toast.makeText(getApplicationContext(),
-                    visit.toString(),
-                    Toast.LENGTH_LONG).show();
+            buildViews(visit);
         }
 
-        initComponents();
     }
 
     private void buildViews(Visit visit) {
         if (visit == null) {
             return;
         }
-//        if (visit.getAttraction() >= 0) {
-//            attraction.setSelection(visit.getAttraction());
-//        }
-//        if (visit.getDate() != null) {
-//            String[] pieces = visit.getDate().split("/");
-//            // 0 - day
-//            // 1 - month
-//            // 2 - year
-//            date.init(parseInt(pieces[2]), parseInt(pieces[1]), parseInt(pieces[0]), null);
-//        }
-//        if (visit.getRating() >= 0 && visit.getRating() <= 5) {
-//            rating.setRating(visit.getRating());
-//        }
-        Toast.makeText(getApplicationContext(),
-                visit.toString(),
-                Toast.LENGTH_LONG).show();
+        if (visit.getAttraction() >= 0) {
+            attraction.setSelection(visit.getAttraction(), true);
+        }
+        if (visit.getDate() != null) {
+            String[] pieces = visit.getDate().split("/");
+            // 0 - day
+            // 1 - month
+            // 2 - year
+            date.init(parseInt(pieces[2]), parseInt(pieces[1]), parseInt(pieces[0]), null);
+        }
+        if (visit.getRating() >= 0 && visit.getRating() <= 5) {
+            rating.setRating(visit.getRating());
+        }
+
         add.setText(R.string.add_visit_save);
     }
 
@@ -98,11 +93,11 @@ public class AddVisitedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String dateString = date.getDayOfMonth() + "/" + date.getMonth() + "/" + date.getYear();
-                Visit visit = new Visit((int) attraction.getSelectedItemId(),
+                Visit newV = new Visit(visit.getId(), (int) attraction.getSelectedItemId(),
                         dateString,
                         (int) rating.getRating());
 
-                intent.putExtra(VISIT_KEY, visit);
+                intent.putExtra(VISIT_KEY, newV);
                 setResult(RESULT_OK, intent);
                 finish();
             }
