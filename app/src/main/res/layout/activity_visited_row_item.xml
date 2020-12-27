@@ -13,9 +13,10 @@
 
         <TextView
             android:id="@+id/visited_row_item_attraction"
-            android:layout_width="wrap_content"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:padding="4sp"
+            android:maxLines="2"
             android:text="@string/default_text"
             style="@style/text"/>
 
@@ -43,9 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8sp"
-
-        >
+        android:padding="8sp">
 
         <Button
             android:layout_width="wrap_content"

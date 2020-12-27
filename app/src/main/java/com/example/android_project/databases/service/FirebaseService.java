@@ -1,8 +1,8 @@
-package com.example.android_project.databases;
+package com.example.android_project.databases.service;
 
 import androidx.annotation.NonNull;
 
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

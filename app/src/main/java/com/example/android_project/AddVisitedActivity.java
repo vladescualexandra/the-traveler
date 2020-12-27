@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,19 +12,15 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 
 import com.example.android_project.data.Attraction;
-import com.example.android_project.data.Visit;
+import com.example.android_project.databases.model.Visit;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AddVisitedActivity extends AppCompatActivity {
 
     Intent intent;
-    public static List<String> attrs = new ArrayList<>();
     public static final String VISIT_KEY = "visit_key";
 
     private Spinner attraction;
@@ -43,9 +38,6 @@ public class AddVisitedActivity extends AppCompatActivity {
 
     private void initComponents() {
         intent = getIntent();
-        for (Attraction a : MainActivity.attractionList) {
-            attrs.add(a.getName());
-        }
         attraction = findViewById(R.id.add_visited_spinner_attractions);
         addAttractionAdapter();
         date = findViewById(R.id.add_visited_date);
@@ -60,7 +52,7 @@ public class AddVisitedActivity extends AppCompatActivity {
     private void addAttractionAdapter() {
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                attrs);
+                MainActivity.visitList);
         attraction.setAdapter(adapter);
     }
 

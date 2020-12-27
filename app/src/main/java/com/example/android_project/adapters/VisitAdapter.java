@@ -1,4 +1,4 @@
-package com.example.android_project.data;
+package com.example.android_project.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.android_project.MainActivity;
 import com.example.android_project.R;
+import com.example.android_project.databases.model.Visit;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
         View view = layoutInflater.inflate(resource, parent, false);
 
         if (visit != null) {
-            setAttraction(view, visit.getId());
+            setAttraction(view, visit.getAttraction());
             setDate(view, visit.getDate());
             setRating(view, visit.getRating());
         }

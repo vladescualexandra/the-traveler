@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 
 public class FavoritesActivity extends AppCompatActivity {
 

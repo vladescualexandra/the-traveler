@@ -14,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
-import com.example.android_project.data.AttractionAdapter;
+import com.example.android_project.adapters.AttractionAdapter;
 import com.example.android_project.data.Attraction;
 import com.example.android_project.data.AttractionsJSONParser;
 import com.example.android_project.network.HttpManager;
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ import java.util.concurrent.Callable;
 public class MainActivity extends AppCompatActivity {
 
     public static List<Attraction> attractionList = new ArrayList<>();
+    public static List<String> visitList;
     private static ProgressBar progressBar;
     private static ListView listViewAttractions;
     private static final String ATTRACTION_KEY = "attraction_key";
@@ -103,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
     private Callback<String> mainThreadOperationGetAttractionsFromUrl() {
         return (result) -> {
             attractionList.addAll(AttractionsJSONParser.retrieveData(result));
+            visitList = new ArrayList<>();
+            for (Attraction attraction : attractionList) {
+                visitList.add(attraction.getName());
+            }
             MainActivity.notifyAdapter();
         };
     }

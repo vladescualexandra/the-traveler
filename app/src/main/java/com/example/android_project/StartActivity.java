@@ -7,8 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.databases.FirebaseService;
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.service.FirebaseService;
+import com.example.android_project.databases.model.UserAccount;
 
 public class StartActivity extends AppCompatActivity {
 
