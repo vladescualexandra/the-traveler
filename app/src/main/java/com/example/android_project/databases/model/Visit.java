@@ -38,6 +38,11 @@ public class Visit implements Serializable {
     }
 
     @Ignore
+    public Visit() {
+
+    }
+
+    @Ignore
     public Visit(String user, int attraction, String date, int rating) {
         this.user = user;
         this.attraction = attraction;

@@ -42,6 +42,11 @@ public class Spending implements Serializable {
         this.amount = amount;
     }
 
+    @Ignore
+    public Spending() {
+
+    }
+
     public long getId() {
         return id;
     }

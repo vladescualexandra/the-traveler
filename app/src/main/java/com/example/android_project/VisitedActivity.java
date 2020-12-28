@@ -79,7 +79,6 @@ public class VisitedActivity extends AppCompatActivity {
                 if (result != null) {
                     visitList.clear();
                     visitList.addAll(result);
-                    Log.e("getAll", "visits: " + visitList.size());
                     notifyAdapter();
                 }
             }
@@ -93,7 +92,6 @@ public class VisitedActivity extends AppCompatActivity {
                 if (result != null) {
                     spendingList.clear();
                     spendingList.addAll(result);
-                    Log.e("getAll", "spendings: " + spendingList.size());
                     notifyAdapter();
                 }
             }
@@ -130,6 +128,7 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Visit>() {
             @Override
             public void runResultOnUIThread(Visit result) throws JSONException {
+                Log.e("update", result.toString());
                 if (result != null) {
                     for (Visit visit : visitList) {
 
@@ -227,10 +226,6 @@ public class VisitedActivity extends AppCompatActivity {
     private void notifyAdapter() {
         VisitAdapter adapter = (VisitAdapter) list.getAdapter();
         adapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(),
-                "notify adapter",
-                Toast.LENGTH_SHORT).show();
-        Log.e("notifyAdapter", "visits: " + visitList.size() + "/ spendings: " + spendingList.size());
     }
 
     private View.OnClickListener addNewVisitEvent() {
@@ -259,8 +254,10 @@ public class VisitedActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
+                Toast.makeText(getApplicationContext(),
+                        "update",
+                        Toast.LENGTH_SHORT).show();
                 visitService.update(visit, updateVisitToDBCallback());
                 spendingService.update(spending, updateSpendingToDBCallback());
             }
