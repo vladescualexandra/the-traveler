@@ -41,10 +41,6 @@ public class AddVisitedActivity extends AppCompatActivity {
 
         intent = getIntent();
         initComponents();
-        Toast.makeText(getApplicationContext(),
-                String.valueOf(MainActivity.attractionList.size()),
-                Toast.LENGTH_SHORT).show();
-
 
         if (intent.hasExtra(VISIT_KEY) && intent.hasExtra(SPENDING_KEY)) {
             visit = (Visit) intent.getSerializableExtra(VISIT_KEY);
@@ -108,21 +104,7 @@ public class AddVisitedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String dateString = date.getDayOfMonth() + "/" + date.getMonth() + "/" + date.getYear();
-
-
-                SharedPreferences prefs = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE);
-                String userID = prefs.getString(StartActivity.ID, null);
-
-
-//                Visit newV = new Visit(
-//                        userID,
-//                        (int) attraction.getSelectedItemId(),
-//                        dateString,
-//                        (int) rating.getRating());
-//
-//                Spending newS = new Spending(
-//                        userID,
-//                        Double.parseDouble(amount.getText().toString().trim()));
+                String userID = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE).getString(StartActivity.ID, null);
 
                 visit.setUser(userID);
                 visit.setAttraction((int) attraction.getSelectedItemId());

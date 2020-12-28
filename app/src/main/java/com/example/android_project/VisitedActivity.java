@@ -215,8 +215,8 @@ public class VisitedActivity extends AppCompatActivity {
         return new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                visitService.delete(visitList.get(position), deleteVisitFromDBCallback(position));
                 spendingService.delete(spendingList.get(position), deleteSpendingFromDBCallback(position));
+                visitService.delete(visitList.get(position), deleteVisitFromDBCallback(position));
                 return true;
             }
         };
@@ -255,9 +255,6 @@ public class VisitedActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
-                Toast.makeText(getApplicationContext(),
-                        "update",
-                        Toast.LENGTH_SHORT).show();
                 visitService.update(visit, updateVisitToDBCallback());
                 spendingService.update(spending, updateSpendingToDBCallback());
             }
