@@ -3,7 +3,11 @@ package com.example.android_project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -15,12 +19,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 public class NavActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private static final String USER_KEY = "user_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,6 @@ public class NavActivity extends AppCompatActivity {
 
         configNavigation();
         initComponents();
-//
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
     }
 
     public void configNavigation() {
@@ -52,8 +52,10 @@ public class NavActivity extends AppCompatActivity {
 
     private void initComponents() {
         navigationView = findViewById(R.id.nav_view);
-        //atasare eveniment de click pe optiunile din meniul lateral
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
+        View headerView = navigationView.getHeaderView(0);
+        TextView username = (TextView) headerView.findViewById(R.id.nav_username);
+        username.setText("Hello");
     }
 
     public NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
@@ -61,10 +63,7 @@ public class NavActivity extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 openActivityFromNavMenu(getApplicationContext(), item.getItemId());
-
-                //inchidem meniul lateral
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -79,7 +78,7 @@ public class NavActivity extends AppCompatActivity {
             intent = new Intent(context, MainActivity.class);
         } else if (id == R.id.nav_account) {
             intent = new Intent(context, AccountActivity.class);
-        } else if (id == R.id.nav_favorites) {
+        } else if (id == R.id.nav_statistics) {
             intent = new Intent(context, StatisticsActivity.class);
         } else if (id == R.id.nav_visited) {
             intent = new Intent(context, VisitedActivity.class);

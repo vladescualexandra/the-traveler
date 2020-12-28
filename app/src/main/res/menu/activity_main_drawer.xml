@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_baseline_face_24"
             android:title="@string/nav_account" />
         <item
-            android:id="@+id/nav_favorites"
-            android:icon="@android:drawable/star_big_on"
-            android:title="Favorites" />
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_baseline_bar_chart_24"
+            android:title="@string/nav_statistics" />
         <item
             android:id="@+id/nav_visited"
             android:icon="@android:drawable/ic_menu_recent_history"
