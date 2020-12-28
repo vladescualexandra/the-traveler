@@ -53,9 +53,6 @@ public class NavActivity extends AppCompatActivity {
     private void initComponents() {
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
-        View headerView = navigationView.getHeaderView(0);
-        TextView username = (TextView) headerView.findViewById(R.id.nav_username);
-        username.setText("Hello");
     }
 
     public NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {

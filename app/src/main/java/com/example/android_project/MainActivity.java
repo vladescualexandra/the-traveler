@@ -2,6 +2,7 @@ package com.example.android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,8 @@ import com.example.android_project.network.HttpManager;
 import com.example.android_project.databases.model.UserAccount;
 import com.google.android.material.navigation.NavigationView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -30,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Attraction> attractionList = new ArrayList<>();
     public static List<String> visitList;
-    private static ProgressBar progressBar;
-    private static ListView listViewAttractions;
+    private ProgressBar progressBar;
+    private ListView listViewAttractions;
     private static final String ATTRACTION_KEY = "attraction_key";
 
     private static Intent intent;
     private static UserAccount user;
     private static final String USER_KEY = "user_key";
 
-    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/25J5";
+    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/RGQE";
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
     @Override
@@ -64,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        String usernameText = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE)
+                .getString(StartActivity.USERNAME, null);
+        String emailText = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE)
+                .getString(StartActivity.EMAIL, null);
+
+        View header = navigationView.getHeaderView(0);
+        TextView username = header.findViewById(R.id.nav_username);
+        if (usernameText != null) {
+            username.setText(usernameText);
+        }
+        TextView email = header.findViewById(R.id.nav_email);
+        if (emailText != null) {
+            email.setText(emailText);
+        }
     }
 
 
@@ -91,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static void notifyAdapter() {
+    public void notifyAdapter() {
         AttractionAdapter adapter = (AttractionAdapter) listViewAttractions.getAdapter();
         adapter.notifyDataSetChanged();
         listViewAttractions.setVisibility(View.VISIBLE);
@@ -111,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             for (Attraction attraction : attractionList) {
                 visitList.add(attraction.getName());
             }
-            MainActivity.notifyAdapter();
+            notifyAdapter();
         };
     }
 
