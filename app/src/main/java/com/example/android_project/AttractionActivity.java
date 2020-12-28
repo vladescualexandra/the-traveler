@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.data.Attraction;
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 
 public class AttractionActivity extends AppCompatActivity {
 

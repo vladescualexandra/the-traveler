@@ -1,10 +1,6 @@
-package com.example.android_project.users;
-
-import com.example.android_project.data.Attraction;
+package com.example.android_project.databases.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserAccount implements Serializable {
 

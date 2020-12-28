@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddVisitedActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16sp">
+
+        <Spinner
+            android:id="@+id/add_visited_spinner_attractions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16sp" />
+
+
+        <EditText
+            android:id="@+id/add_visited_spending"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:hint="@string/add_visited_spending"
+            android:layout_marginBottom="16sp"
+            />
+
+        <DatePicker
+            android:id="@+id/add_visited_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <RatingBar
+            android:id="@+id/add_visited_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:layout_gravity="center_horizontal"
+            android:stepSize="1"
+            />
+
+        <Button
+            android:id="@+id/add_visited_btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_visit_button"
+            android:layout_marginTop="16sp"
+            android:layout_gravity="center_horizontal"
+            />
+
+
+    </LinearLayout>
+</ScrollView>

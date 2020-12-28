@@ -12,11 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.Firebase.FirebaseService;
-import com.example.android_project.async.Callback;
-import com.example.android_project.users.UserAccount;
-
-import org.json.JSONException;
+import com.example.android_project.databases.service.FirebaseService;
+import com.example.android_project.databases.model.UserAccount;
 
 public class LoginActivity extends AppCompatActivity {
 

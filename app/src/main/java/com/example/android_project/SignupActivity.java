@@ -10,8 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android_project.Firebase.FirebaseService;
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignupActivity extends AppCompatActivity {

@@ -1,45 +1,34 @@
 package com.example.android_project;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.android_project.Firebase.FirebaseService;
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
-import com.example.android_project.data.AttractionAdapter;
+import com.example.android_project.adapters.AttractionAdapter;
 import com.example.android_project.data.Attraction;
 import com.example.android_project.data.AttractionsJSONParser;
 import com.example.android_project.network.HttpManager;
-import com.example.android_project.users.UserAccount;
+import com.example.android_project.databases.model.UserAccount;
 import com.google.android.material.navigation.NavigationView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Attraction> attractionList = new ArrayList<>();
+    public static List<Attraction> attractionList = new ArrayList<>();
+    public static List<String> visitList;
     private static ProgressBar progressBar;
     private static ListView listViewAttractions;
     private static final String ATTRACTION_KEY = "attraction_key";
@@ -115,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
     private Callback<String> mainThreadOperationGetAttractionsFromUrl() {
         return (result) -> {
             attractionList.addAll(AttractionsJSONParser.retrieveData(result));
+            visitList = new ArrayList<>();
+            for (Attraction attraction : attractionList) {
+                visitList.add(attraction.getName());
+            }
             MainActivity.notifyAdapter();
         };
     }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="8sp">
+
+
+
+    <LinearLayout
+        android:id="@+id/visited_row_item_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/visited_row_item_attraction"
+            style="@style/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:padding="4sp"
+            android:text="@string/default_text" />
+
+        <TextView
+            android:id="@+id/visited_row_item_date"
+            style="@style/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4sp"
+            android:text="@string/default_text" />
+
+        <RatingBar
+            android:id="@+id/visited_row_item_rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:isIndicator="true"
+            android:numStars="5" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/visited_row_item_spending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@+id/visited_row_item_details"
+        android:layout_toRightOf="@+id/visited_row_item_details"
+        android:text="@string/default_cost"
+        android:textSize="24sp"
+        android:gravity="end"
+         />
+
+</RelativeLayout>
+
+
