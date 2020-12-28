@@ -30,8 +30,8 @@ public class VisitedActivity extends AppCompatActivity {
     public static final int ADD_VISIT_REQUEST_CODE = 201;
     private static final int UPDATE_VISIT_REQUEST_CODE = 300;
 
-    public static List<Visit> visitList = new ArrayList<>();
-    public static List<Spending> spendingList = new ArrayList<>();
+    public static List<Visit> visitList;
+    public static List<Spending> spendingList;
     private Button addNewVisit;
     private ListView list;
 
@@ -53,14 +53,18 @@ public class VisitedActivity extends AppCompatActivity {
         addNewVisit = findViewById(R.id.visted_add_new_visit);
         addNewVisit.setOnClickListener(addNewVisitEvent());
 
+        visitList = new ArrayList<>();
+        spendingList = new ArrayList<>();
 
         list = findViewById(R.id.visited_listView);
+        addAdapter();
 
         visitService = new VisitService(getApplicationContext());
-        spendingService = new SpendingService(getApplicationContext());
         visitService.getAll(getAllVisitsFromDBCallback());
+
+        spendingService = new SpendingService(getApplicationContext());
         spendingService.getAll(getAllSpendingsFromDBCallback());
-        addAdapter();
+
 
         list.setOnItemClickListener(updateVisitEventListener());
         list.setOnItemLongClickListener(deleteVisitEventListener());
@@ -75,6 +79,7 @@ public class VisitedActivity extends AppCompatActivity {
                 if (result != null) {
                     visitList.clear();
                     visitList.addAll(result);
+                    Log.e("getAll", "visits: " + visitList.size());
                     notifyAdapter();
                 }
             }
@@ -88,6 +93,7 @@ public class VisitedActivity extends AppCompatActivity {
                 if (result != null) {
                     spendingList.clear();
                     spendingList.addAll(result);
+                    Log.e("getAll", "spendings: " + spendingList.size());
                     notifyAdapter();
                 }
             }
@@ -98,7 +104,7 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Visit>() {
             @Override
             public void runResultOnUIThread(Visit result) {
-                Log.e("test", "callback");
+                Log.e("insert", result.toString());
                 if (result != null) {
                     visitList.add(result);
                     notifyAdapter();
@@ -111,6 +117,7 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Spending>() {
             @Override
             public void runResultOnUIThread(Spending result) throws JSONException {
+                Log.e("insert", result.toString());
                 if (result != null) {
                     spendingList.add(result);
                     notifyAdapter();
@@ -220,6 +227,10 @@ public class VisitedActivity extends AppCompatActivity {
     private void notifyAdapter() {
         VisitAdapter adapter = (VisitAdapter) list.getAdapter();
         adapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(),
+                "notify adapter",
+                Toast.LENGTH_SHORT).show();
+        Log.e("notifyAdapter", "visits: " + visitList.size() + "/ spendings: " + spendingList.size());
     }
 
     private View.OnClickListener addNewVisitEvent() {
@@ -242,39 +253,12 @@ public class VisitedActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == ADD_VISIT_REQUEST_CODE) {
                 visitService.insert(visit, insertVisitIntoDBCallback());
-
-                visitList.add(visit);
-                notifyAdapter();
-
-
-                Log.e("visit", visit.toString());
-
-                insertVisitIntoDBCallback();
                 try {
                     Thread.sleep(1000);
+                    spendingService.insert(spending, visit.getId(), insertSpendingIntoDBCallback());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                spending.setVisit(visit.getId());
-
-
-                Toast.makeText(getApplicationContext(),
-                        String.valueOf(spending.getVisit()),
-                        Toast.LENGTH_LONG).show();
-
-
-
-                spendingService.insert(spending, insertSpendingIntoDBCallback());
-
-                Log.e("spending", spending.toString());
-
-                spendingList.add(spending);
-                notifyAdapter();
-
-                Log.e("visitList.size()", String.valueOf(visitList.size()));
-                Log.e("spendingList.size()", String.valueOf(spendingList.size()));
-
 
             } else if (requestCode == UPDATE_VISIT_REQUEST_CODE) {
                 visitService.update(visit, updateVisitToDBCallback());

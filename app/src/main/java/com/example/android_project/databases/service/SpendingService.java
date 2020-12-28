@@ -33,13 +33,14 @@ public class SpendingService {
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void insert(final Spending spending, Callback<Spending> callback) {
+    public void insert(final Spending spending, long visit, Callback<Spending> callback) {
         Callable<Spending> callable = new Callable<Spending>() {
             @Override
             public Spending call() {
                 if (spending == null) {
                     return null;
                 } else {
+                    spending.setVisit(visit);
                     long id = spendingDao.insert(spending);
                     if (id == -1) {
                         return null;

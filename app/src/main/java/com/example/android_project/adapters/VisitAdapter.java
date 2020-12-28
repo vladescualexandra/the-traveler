@@ -30,16 +30,17 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
     private LayoutInflater layoutInflater;
 
     public VisitAdapter(@NonNull Context context,
-                             int resource,
-                             @NonNull List<Visit> list,
-                             @NonNull List<Spending> spendings,
-                             LayoutInflater layoutInflater) {
+                        int resource,
+                        @NonNull List<Visit> list,
+                        @NonNull List<Spending> spendings,
+                        LayoutInflater layoutInflater) {
         super(context, resource, list);
         this.context = context;
         this.resource = resource;
         this.visits = list;
         this.spendings = spendings;
         this.layoutInflater = layoutInflater;
+
     }
 
     @NonNull
@@ -48,19 +49,32 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
                         @Nullable View convertView,
                         @NonNull ViewGroup parent) {
 
-        Visit visit = visits.get(position);
-        Spending spending = spendings.get(position);
         View view = layoutInflater.inflate(resource, parent, false);
 
-        if (visit != null) {
-            setAttraction(view, visit.getAttraction());
-            setDate(view, visit.getDate());
-            setRating(view, visit.getRating());
-            setSpending(view, spending.getAmount());
+
+        if (visits.size() > 0) {
+            if (position < visits.size()) {
+                Visit visit = visits.get(position);
+                if (visit != null) {
+                    setAttraction(view, visit.getAttraction());
+                    setDate(view, visit.getDate());
+                    setRating(view, visit.getRating());
+                }
+            }
         }
+
+        if (spendings.size() > 0) {
+            if (position < spendings.size()) {
+                Spending spending = spendings.get(position);
+                if (spending != null) {
+                    setSpending(view, spending.getAmount());
+                }
+            }
+        }
+
+
         return view;
     }
-
 
 
     private void setRating(View view, int rating) {
@@ -74,6 +88,7 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
     }
 
     private void setAttraction(View view, int attraction) {
+
         String name = MainActivity.attractionList.get(attraction).getName();
 
         TextView tv = view.findViewById(R.id.visited_row_item_attraction);
