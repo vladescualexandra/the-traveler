@@ -80,7 +80,7 @@ public class NavActivity extends AppCompatActivity {
         } else if (id == R.id.nav_account) {
             intent = new Intent(context, AccountActivity.class);
         } else if (id == R.id.nav_favorites) {
-            intent = new Intent(context, FavoritesActivity.class);
+            intent = new Intent(context, StatisticsActivity.class);
         } else if (id == R.id.nav_visited) {
             intent = new Intent(context, VisitedActivity.class);
         }

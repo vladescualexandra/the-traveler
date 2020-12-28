@@ -16,11 +16,6 @@
         android:layout_height="wrap_content"
         android:text="@string/add_a_new_visit_textview" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/visited_cardView_graph"
-        android:layout_width="match_parent"
-        android:layout_height="200sp" />
-
     <ListView
         android:id="@+id/visited_listView"
         android:layout_width="match_parent"

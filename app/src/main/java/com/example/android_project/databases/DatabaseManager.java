@@ -6,10 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.android_project.databases.dao.SpendingDao;
 import com.example.android_project.databases.dao.VisitDao;
+import com.example.android_project.databases.model.Spending;
 import com.example.android_project.databases.model.Visit;
 
-@Database(entities = {Visit.class}, exportSchema = false, version = 1)
+@Database(entities = {Visit.class, Spending.class}, exportSchema = false, version = 2)
 public abstract class DatabaseManager extends RoomDatabase {
 
     private static final String DATABASE_NAME = "android_project";
@@ -31,4 +33,6 @@ public abstract class DatabaseManager extends RoomDatabase {
     }
 
     public abstract VisitDao getVisitDao();
+
+    public abstract SpendingDao getSpendingDao();
 }

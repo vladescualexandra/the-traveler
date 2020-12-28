@@ -19,11 +19,22 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16sp" />
 
+
+        <EditText
+            android:id="@+id/add_visited_spending"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:hint="@string/add_visited_spending"
+            android:layout_marginBottom="16sp"
+            />
+
         <DatePicker
             android:id="@+id/add_visited_date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            />
 
         <RatingBar
             android:id="@+id/add_visited_rating"

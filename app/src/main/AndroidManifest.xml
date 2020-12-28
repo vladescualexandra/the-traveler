@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Androidproject">
         <activity android:name=".AddVisitedActivity"/>
         <activity android:name=".VisitedActivity" />
-        <activity android:name=".FavoritesActivity" />
+        <activity android:name=".StatisticsActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".NavActivity" />
         <activity android:name=".LoginActivity" />

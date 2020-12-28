@@ -6,82 +6,81 @@ import android.util.Log;
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
 import com.example.android_project.databases.DatabaseManager;
-import com.example.android_project.databases.dao.VisitDao;
+import com.example.android_project.databases.dao.SpendingDao;
+import com.example.android_project.databases.model.Spending;
 import com.example.android_project.databases.model.Visit;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class VisitService {
+public class SpendingService {
 
-    private final VisitDao visitDao;
+    private final SpendingDao spendingDao;
     private final AsyncTaskRunner taskRunner;
 
-    public VisitService(Context context) {
-        visitDao = DatabaseManager.getInstance(context).getVisitDao();
+    public SpendingService(Context context) {
+        spendingDao = DatabaseManager.getInstance(context).getSpendingDao();
         taskRunner = new AsyncTaskRunner();
     }
 
-    public void getAll(Callback<List<Visit>> callback) {
-        Callable<List<Visit>> callable = new Callable<List<Visit>>() {
+    public void getAll(Callback<List<Spending>> callback) {
+        Callable<List<Spending>> callable = new Callable<List<Spending>>() {
             @Override
-            public List<Visit> call() throws Exception {
-                return visitDao.getAll();
+            public List<Spending> call() throws Exception {
+                return spendingDao.getAll();
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void insert(final Visit visit, Callback<Visit> callback) {
-        Callable<Visit> callable = new Callable<Visit>() {
+    public void insert(final Spending spending, Callback<Spending> callback) {
+        Callable<Spending> callable = new Callable<Spending>() {
             @Override
-            public Visit call() {
-                Log.e("test", "callable");
-                if (visit == null) {
+            public Spending call() {
+                if (spending == null) {
                     return null;
                 } else {
-                    long id = visitDao.insert(visit);
-                    Log.e("id", String.valueOf(id));
+                    long id = spendingDao.insert(spending);
                     if (id == -1) {
                         return null;
                     } else {
-                        visit.setId(id);
-                        return visit;
+                        spending.setId(id);
+                        return spending;
                     }
                 }
             }
         };
-
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void update(final Visit visit, Callback<Visit> callback) {
-        Callable<Visit> callable = new Callable<Visit>() {
+    public void update(final Spending spending, Callback<Spending> callback) {
+        Callable<Spending> callable = new Callable<Spending>() {
             @Override
-            public Visit call() throws Exception {
-                if (visit == null) {
+            public Spending call() throws Exception {
+                if (spending == null) {
                     return null;
                 }
-                int count = visitDao.update(visit);
+                int count = spendingDao.update(spending);
                 if (count < 1) {
                     return null;
                 }
-                return visit;
+                return spending;
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void delete(final Visit visit, Callback<Integer> callback) {
+    public void delete(final Spending spending, Callback<Integer> callback) {
         Callable<Integer> callable = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
-                if (visit == null) {
+                if (spending == null) {
                     return -1;
                 }
-                return visitDao.delete(visit);
+                return spendingDao.delete(spending);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
+
 }

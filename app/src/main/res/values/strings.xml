@@ -47,4 +47,7 @@
     <string name="visited_edit">Edit</string>
     <string name="visited_delete">Delete</string>
     <string name="add_visit_save">SAVE</string>
+    <string name="default_cost">0.00$</string>
+    <string name="visited_amount">%1$d €</string>
+    <string name="add_visited_spending">How much did you spend?</string>
 </resources>

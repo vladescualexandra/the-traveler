@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.android_project.MainActivity;
 import com.example.android_project.R;
+import com.example.android_project.databases.model.Spending;
 import com.example.android_project.databases.model.Visit;
 
 import java.util.List;
@@ -24,17 +25,20 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
 
     private Context context;
     private int resource;
-    private List<Visit> list;
+    private List<Visit> visits;
+    private List<Spending> spendings;
     private LayoutInflater layoutInflater;
 
     public VisitAdapter(@NonNull Context context,
                              int resource,
                              @NonNull List<Visit> list,
+                             @NonNull List<Spending> spendings,
                              LayoutInflater layoutInflater) {
         super(context, resource, list);
         this.context = context;
         this.resource = resource;
-        this.list = list;
+        this.visits = list;
+        this.spendings = spendings;
         this.layoutInflater = layoutInflater;
     }
 
@@ -44,13 +48,15 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
                         @Nullable View convertView,
                         @NonNull ViewGroup parent) {
 
-        Visit visit = list.get(position);
+        Visit visit = visits.get(position);
+        Spending spending = spendings.get(position);
         View view = layoutInflater.inflate(resource, parent, false);
 
         if (visit != null) {
             setAttraction(view, visit.getAttraction());
             setDate(view, visit.getDate());
             setRating(view, visit.getRating());
+            setSpending(view, spending.getAmount());
         }
         return view;
     }
@@ -74,6 +80,11 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
         addTextViewContent(tv, name);
     }
 
+    private void setSpending(View view, double spending) {
+        String amount = spending + "€";
+        TextView tv = view.findViewById(R.id.visited_row_item_spending);
+        addTextViewContent(tv, amount);
+    }
 
 
     private void addTextViewContent(TextView textView, String value) {

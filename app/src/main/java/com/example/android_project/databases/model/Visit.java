@@ -15,6 +15,9 @@ public class Visit implements Serializable {
     @ColumnInfo(name = "id")
     private long id;
 
+    @ColumnInfo(name = "user")
+    private String user;
+
     @ColumnInfo(name = "attraction")
     private int attraction;
 
@@ -25,15 +28,18 @@ public class Visit implements Serializable {
     private int rating;
 
 
-    @Ignore
-    public Visit(int attraction, String date, int rating) {
+
+    public Visit(long id, String user, int attraction, String date, int rating) {
+        this.id = id;
+        this.user = user;
         this.attraction = attraction;
         this.date = date;
         this.rating = rating;
     }
 
-    public Visit(long id, int attraction, String date, int rating) {
-        this.id = id;
+    @Ignore
+    public Visit(String user, int attraction, String date, int rating) {
+        this.user = user;
         this.attraction = attraction;
         this.date = date;
         this.rating = rating;
@@ -71,9 +77,22 @@ public class Visit implements Serializable {
         this.rating = rating;
     }
 
-    @NonNull
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
-        return this.id + ", " + this.attraction + ", " + this.date + ", " + this.rating;
+        return "Visit{" +
+                "id=" + id +
+                ", user='" + user + '\'' +
+                ", attraction=" + attraction +
+                ", date='" + date + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }
