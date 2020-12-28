@@ -26,7 +26,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/text"/>
+        style="@style/title"
+        />
 
     <ImageView
         android:id="@+id/attraction_image"
@@ -71,7 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/attraction_details"
-        android:textColor="@color/rose_red"
+        android:textSize="24sp"
+        android:textColor="@color/french_pink"
         android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
