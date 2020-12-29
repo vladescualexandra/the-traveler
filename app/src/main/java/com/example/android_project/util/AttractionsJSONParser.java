@@ -1,7 +1,10 @@
-package com.example.android_project.data;
+package com.example.android_project.util;
 
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.android_project.data.Attraction;
+import com.example.android_project.data.Coordinates;
 
 import org.json.JSONArray;
 import org.json.JSONException;

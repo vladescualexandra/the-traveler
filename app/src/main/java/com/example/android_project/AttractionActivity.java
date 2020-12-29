@@ -1,19 +1,16 @@
 package com.example.android_project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.data.Attraction;
-import com.example.android_project.data.AttractionsJSONParser;
 import com.example.android_project.data.Coordinates;
 import com.example.android_project.databases.model.UserAccount;
 
