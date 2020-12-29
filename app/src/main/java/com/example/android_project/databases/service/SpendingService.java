@@ -23,11 +23,11 @@ public class SpendingService {
         taskRunner = new AsyncTaskRunner();
     }
 
-    public void getAll(Callback<List<Spending>> callback) {
+    public void getAll(String user, Callback<List<Spending>> callback) {
         Callable<List<Spending>> callable = new Callable<List<Spending>>() {
             @Override
             public List<Spending> call() throws Exception {
-                return spendingDao.getAll();
+                return spendingDao.getAll(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
@@ -85,41 +85,41 @@ public class SpendingService {
     }
 
 
-    public void getMin(Callback<Float> callback) {
+    public void getMin(String user, Callback<Float> callback) {
         Callable<Float> callable = new Callable<Float>() {
             @Override
             public Float call() throws Exception {
-                return spendingDao.getMin();
+                return spendingDao.getMin(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getMax(Callback<Float> callback) {
+    public void getMax(String user, Callback<Float> callback) {
         Callable<Float> callable = new Callable<Float>() {
             @Override
             public Float call() throws Exception {
-                return spendingDao.getMax();
+                return spendingDao.getMax(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getAvg(Callback<Float> callback) {
+    public void getAvg(String user, Callback<Float> callback) {
         Callable<Float> callable = new Callable<Float>() {
             @Override
             public Float call() throws Exception {
-                return spendingDao.getAvg();
+                return spendingDao.getAvg(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getTotal(Callback<Float> callback) {
+    public void getTotal(String user, Callback<Float> callback) {
         Callable<Float> callable = new Callable<Float>() {
             @Override
             public Float call() throws Exception {
-                return spendingDao.getTotal();
+                return spendingDao.getTotal(user);
             }
         };
         taskRunner.executeAsync(callable, callback);

@@ -59,11 +59,13 @@ public class VisitedActivity extends AppCompatActivity {
         list = findViewById(R.id.visited_listView);
         addAdapter();
 
+        String user = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE).getString(StartActivity.ID, null);
+
         visitService = new VisitService(getApplicationContext());
-        visitService.getAll(getAllVisitsFromDBCallback());
+        visitService.getAll(user, getAllVisitsFromDBCallback());
 
         spendingService = new SpendingService(getApplicationContext());
-        spendingService.getAll(getAllSpendingsFromDBCallback());
+        spendingService.getAll(user, getAllSpendingsFromDBCallback());
 
 
         list.setOnItemClickListener(updateVisitEventListener());
@@ -102,7 +104,6 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Visit>() {
             @Override
             public void runResultOnUIThread(Visit result) {
-                Log.e("insert", result.toString());
                 if (result != null) {
                     visitList.add(result);
                     notifyAdapter();
@@ -115,7 +116,6 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Spending>() {
             @Override
             public void runResultOnUIThread(Spending result) throws JSONException {
-                Log.e("insert", result.toString());
                 if (result != null) {
                     spendingList.add(result);
                     notifyAdapter();
@@ -128,7 +128,6 @@ public class VisitedActivity extends AppCompatActivity {
         return new Callback<Visit>() {
             @Override
             public void runResultOnUIThread(Visit result) throws JSONException {
-                Log.e("update", result.toString());
                 if (result != null) {
                     for (Visit visit : visitList) {
 

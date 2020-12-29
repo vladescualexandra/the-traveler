@@ -14,8 +14,8 @@ import java.util.List;
 @Dao
 public interface SpendingDao {
 
-    @Query("select * from spendings")
-    List<Spending> getAll();
+    @Query("select * from spendings where user LIKE :user")
+    List<Spending> getAll(String user);
 
     @Insert
     long insert(Spending visit);
@@ -27,16 +27,16 @@ public interface SpendingDao {
     @Delete
     int delete(Spending visit);
 
-    @Query("SELECT MIN(amount) from spendings")
-    float getMin();
+    @Query("SELECT MIN(amount) from spendings where user LIKE :user")
+    float getMin(String user);
 
-    @Query("SELECT MAX(amount) from spendings")
-    Float getMax();
+    @Query("SELECT MAX(amount) from spendings where user LIKE :user")
+    Float getMax(String user);
 
-    @Query("SELECT AVG(amount) from spendings")
-    Float getAvg();
+    @Query("SELECT AVG(amount) from spendings where user LIKE :user")
+    Float getAvg(String user);
 
-    @Query("SELECT SUM(amount) from spendings")
-    Float getTotal();
+    @Query("SELECT SUM(amount) from spendings where user LIKE :user")
+    Float getTotal(String user);
 
 }

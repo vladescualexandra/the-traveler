@@ -51,14 +51,16 @@ public class ReportActivity extends AppCompatActivity {
         visitService = new VisitService(getApplicationContext());
         spendingService = new SpendingService(getApplicationContext());
 
-        visitService.getMin(getMinRatingFromDBCallback());
-        visitService.getMax(getMaxRatingFromDBCallback());
-        visitService.getAvg(getAvgRatingFromDBCallback());
+        String user = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE).getString(StartActivity.ID, null);
 
-        spendingService.getMin(getMinSpendingFromDBCallback());
-        spendingService.getMax(getMaxSpendingFromDBCallback());
-        spendingService.getAvg(getAvgSpendingFromDBCallback());
-        spendingService.getTotal(getTotalSpendingFromDBCallback());
+        visitService.getMin(user, getMinRatingFromDBCallback());
+        visitService.getMax(user, getMaxRatingFromDBCallback());
+        visitService.getAvg(user, getAvgRatingFromDBCallback());
+
+        spendingService.getMin(user, getMinSpendingFromDBCallback());
+        spendingService.getMax(user, getMaxSpendingFromDBCallback());
+        spendingService.getAvg(user, getAvgSpendingFromDBCallback());
+        spendingService.getTotal(user, getTotalSpendingFromDBCallback());
     }
 
 

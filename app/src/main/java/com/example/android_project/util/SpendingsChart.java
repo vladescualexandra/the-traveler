@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -42,12 +43,16 @@ public class SpendingsChart extends View {
 
             }
 
-            for (int i = 1; i < source.size() - 1; i++) {
-                drawLine(canvas, i - 1, distanceBetweenPoints,
-                        maxSpending, source.get(i - 1), source.get(i));
+            if (source.size() > 3) {
+                for (int i = 1; i < source.size() - 1; i++) {
+                    drawLine(canvas, i - 1, distanceBetweenPoints,
+                            maxSpending, source.get(i - 1), source.get(i));
+                }
+            } else {
+                Toast.makeText(context,
+                        "Not enough visits.",
+                        Toast.LENGTH_LONG).show();
             }
-
-
         }
     }
 

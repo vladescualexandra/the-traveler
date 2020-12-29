@@ -28,14 +28,14 @@ public interface VisitDao {
     @Delete
     int delete(Visit visit);
 
-    @Query("SELECT MIN(rating) from visits")
-    int getMin();
+    @Query("SELECT MIN(rating) from visits where user LIKE :user")
+    int getMin(String user);
 
-    @Query("SELECT MAX(rating) from visits")
-    int getMax();
+    @Query("SELECT MAX(rating) from visits where user LIKE :user")
+    int getMax(String user);
 
-    @Query("SELECT AVG(rating) from visits")
-    int getAvg();
+    @Query("SELECT AVG(rating) from visits where user LIKE :user")
+    int getAvg(String user);
 
 
 }

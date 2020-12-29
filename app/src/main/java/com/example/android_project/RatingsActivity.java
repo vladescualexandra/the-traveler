@@ -26,7 +26,6 @@ public class RatingsActivity extends AppCompatActivity {
             String key = String.valueOf(entry.getKey());
             String value = String.valueOf(entry.getValue());
 
-            Log.e(key, value);
         }
 
 

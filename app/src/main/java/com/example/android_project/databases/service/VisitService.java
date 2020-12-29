@@ -36,12 +36,10 @@ public class VisitService {
         Callable<Visit> callable = new Callable<Visit>() {
             @Override
             public Visit call() {
-                Log.e("test", "callable");
                 if (visit == null) {
                     return null;
                 } else {
                     long id = visitDao.insert(visit);
-                    Log.e("id", String.valueOf(id));
                     if (id == -1) {
                         return null;
                     } else {
@@ -85,31 +83,31 @@ public class VisitService {
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getMin(Callback<Integer> callback) {
+    public void getMin(String user, Callback<Integer> callback) {
         Callable<Integer> callable = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
-                return visitDao.getMin();
+                return visitDao.getMin(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getMax(Callback<Integer> callback) {
+    public void getMax(String user, Callback<Integer> callback) {
         Callable<Integer> callable = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
-                return visitDao.getMax();
+                return visitDao.getMax(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
     }
 
-    public void getAvg(Callback<Integer> callback) {
+    public void getAvg(String user, Callback<Integer> callback) {
         Callable<Integer> callable = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
-                return visitDao.getAvg();
+                return visitDao.getAvg(user);
             }
         };
         taskRunner.executeAsync(callable, callback);

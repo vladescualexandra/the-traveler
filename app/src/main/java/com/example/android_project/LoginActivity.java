@@ -18,7 +18,6 @@ import com.example.android_project.databases.model.UserAccount;
 public class LoginActivity extends AppCompatActivity {
 
 
-
     EditText username;
     EditText password;
     Button signIn;
@@ -66,11 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                 input_password = password.getText().toString().trim();
 
                 StartActivity.firebaseService.select(input_username, input_password);
-
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (FirebaseService.user != null) {
-                    synchronized (FirebaseService.user) {
-                        login();
-                    }
+                    login();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.login_error_account),
