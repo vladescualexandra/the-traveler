@@ -3,6 +3,7 @@ package com.example.android_project;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,21 +65,36 @@ public class LoginActivity extends AppCompatActivity {
                 input_username = username.getText().toString().trim();
                 input_password = password.getText().toString().trim();
 
-                StartActivity.firebaseService.select(input_username, input_password);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (FirebaseService.user != null) {
-                    login();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            getString(R.string.login_error_account),
-                            Toast.LENGTH_LONG).show();
+                if (validateInput(input_username, input_password)) {
+
+                        StartActivity.firebaseService.select(input_username, input_password);
+                        if (FirebaseService.user != null) {
+                            login();
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.login_error_account),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
                 }
             }
         };
+    }
+
+    private boolean validateInput(String input_username, String input_password) {
+        if (input_username.length() < 3) {
+            username.setError("Username not long enough.");
+            return false;
+        } else {
+            username.setError(null);
+        }
+        if (input_password.length() < 3) {
+            password.setError("Password not long enough.");
+            return false;
+        } else {
+            password.setError(null);
+        }
+        return true;
     }
 
     @Override
