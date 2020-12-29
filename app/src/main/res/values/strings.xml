@@ -51,4 +51,17 @@
     <string name="visited_amount">%1$d €</string>
     <string name="add_visited_spending">How much did you spend?</string>
     <string name="nav_statistics">Statistics</string>
+    <string name="statistics_ratings">Statistics: Ratings</string>
+    <string name="statistics_spendings">Statistics: Spendings</string>
+    <string name="report_title">Report</string>
+    <string name="report_title_ratings">Ratings</string>
+    <string name="report_title_spendings">Spendings</string>
+    <string name="report_rating_min">The lowest rating you gave: %1$d</string>
+    <string name="report_rating_max">The highest rating you gave: %1$d</string>
+    <string name="report_rating_avg">The average rating you gave: %1$d</string>
+    <string name="report_spending_min">The lowest amount you spent: %1$.2f</string>
+    <string name="report_spending_max">The highest amount you spent: %1$.2f</string>
+    <string name="report_spending_avg">The average amount you spent: %1$.2f</string>
+    <string name="report_spending_total">The total amount you spent: %1$.2f</string>
+    <string name="nav_report">Report</string>
 </resources>

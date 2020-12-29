@@ -26,4 +26,17 @@ public interface SpendingDao {
 
     @Delete
     int delete(Spending visit);
+
+    @Query("SELECT MIN(amount) from spendings")
+    float getMin();
+
+    @Query("SELECT MAX(amount) from spendings")
+    Float getMax();
+
+    @Query("SELECT AVG(amount) from spendings")
+    Float getAvg();
+
+    @Query("SELECT SUM(amount) from spendings")
+    Float getTotal();
+
 }

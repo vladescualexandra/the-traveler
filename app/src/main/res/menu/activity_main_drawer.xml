@@ -13,9 +13,19 @@
             android:icon="@drawable/ic_baseline_face_24"
             android:title="@string/nav_account" />
         <item
-            android:id="@+id/nav_statistics"
+            android:id="@+id/nav_statistics_ratings"
             android:icon="@drawable/ic_baseline_bar_chart_24"
-            android:title="@string/nav_statistics" />
+            android:title="@string/statistics_ratings" />
+
+        <item
+            android:id="@+id/nav_statistics_spendings"
+            android:icon="@drawable/ic_baseline_bar_chart_24"
+            android:title="@string/statistics_spendings" />
+
+        <item android:id="@+id/nav_report"
+            android:icon="@drawable/ic_baseline_content_paste_24"
+            android:title="@string/nav_report"
+            />
         <item
             android:id="@+id/nav_visited"
             android:icon="@android:drawable/ic_menu_recent_history"

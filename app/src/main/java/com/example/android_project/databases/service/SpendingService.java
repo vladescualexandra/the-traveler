@@ -84,4 +84,46 @@ public class SpendingService {
         taskRunner.executeAsync(callable, callback);
     }
 
+
+    public void getMin(Callback<Float> callback) {
+        Callable<Float> callable = new Callable<Float>() {
+            @Override
+            public Float call() throws Exception {
+                return spendingDao.getMin();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getMax(Callback<Float> callback) {
+        Callable<Float> callable = new Callable<Float>() {
+            @Override
+            public Float call() throws Exception {
+                return spendingDao.getMax();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getAvg(Callback<Float> callback) {
+        Callable<Float> callable = new Callable<Float>() {
+            @Override
+            public Float call() throws Exception {
+                return spendingDao.getAvg();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getTotal(Callback<Float> callback) {
+        Callable<Float> callable = new Callable<Float>() {
+            @Override
+            public Float call() throws Exception {
+                return spendingDao.getTotal();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+
 }

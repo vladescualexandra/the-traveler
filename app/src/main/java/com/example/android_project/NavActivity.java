@@ -3,10 +3,7 @@ package com.example.android_project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -14,12 +11,9 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import org.w3c.dom.Text;
 
 public class NavActivity extends AppCompatActivity {
 
@@ -75,8 +69,12 @@ public class NavActivity extends AppCompatActivity {
             intent = new Intent(context, MainActivity.class);
         } else if (id == R.id.nav_account) {
             intent = new Intent(context, AccountActivity.class);
-        } else if (id == R.id.nav_statistics) {
-            intent = new Intent(context, StatisticsActivity.class);
+        } else if (id == R.id.nav_statistics_ratings) {
+            intent = new Intent(context, RatingsActivity.class);
+        } else if (id == R.id.nav_statistics_spendings) {
+            intent = new Intent(context, SpendingsActivity.class);
+        } else if (id == R.id.nav_report) {
+            intent = new Intent(context, ReportActivity.class);
         } else if (id == R.id.nav_visited) {
             intent = new Intent(context, VisitedActivity.class);
         }

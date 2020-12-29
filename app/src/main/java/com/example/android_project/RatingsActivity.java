@@ -1,25 +1,19 @@
 package com.example.android_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.android_project.databases.model.UserAccount;
 import com.example.android_project.databases.model.Visit;
-import com.example.android_project.util.ChartView;
+import com.example.android_project.util.RatingsChart;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StatisticsActivity extends AppCompatActivity {
+public class RatingsActivity extends AppCompatActivity {
 
 
     @Override
@@ -38,7 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         if (source != null) {
 
-            ChartView view = new ChartView(getApplicationContext(), source);
+            RatingsChart view = new RatingsChart(getApplicationContext(), source);
             setContentView(view);
         } else {
             finish();

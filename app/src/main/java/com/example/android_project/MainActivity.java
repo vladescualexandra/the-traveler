@@ -1,5 +1,6 @@
 package com.example.android_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/RGQE";
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
+    NavigationView navigationView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setNavigationView() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
+    public void setNavigationView() {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         listViewAttractions = findViewById(R.id.main_list);
         listViewAttractions.setVisibility(View.INVISIBLE);
         initList(); // add adapter
+        findViewById(R.id.nav_view);
     }
 
 

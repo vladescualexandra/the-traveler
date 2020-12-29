@@ -10,7 +10,7 @@ import android.graphics.Color;
 
 import java.util.Map;
 
-public class ChartView extends View {
+public class RatingsChart extends View {
 
     private Context context;
     private Map<Integer, Integer> source;
@@ -25,8 +25,8 @@ public class ChartView extends View {
 
     private final int[] colors = {color1, color2, color3, color4, color5};
 
-    public ChartView(Context context,
-                     Map<Integer, Integer> source) {
+    public RatingsChart(Context context,
+                        Map<Integer, Integer> source) {
         super(context);
         this.context = context;
         this.source = source;
@@ -81,7 +81,7 @@ public class ChartView extends View {
 
 
         float x1 = position * widthBar;
-        float y1 = (float) ((1 - (float) value / maxValue) * 0.8 * getHeight());
+        float y1 = ((1 - (float) value / maxValue) * getHeight());
 
 
         float x2 = x1 + widthBar;

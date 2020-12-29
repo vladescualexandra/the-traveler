@@ -13,23 +13,29 @@ import java.util.List;
 @Dao
 public interface VisitDao {
 
-    @Query("SELECT * from visits")
-    List<Visit> getAll();
+    @Query("SELECT * from visits where user LIKE :user")
+    List<Visit> getAll(String user);
 
 
     @Insert
     long insert(Visit visit);
-    // returnează id-ul sau -1 dacă apar erori
+
 
     @Update
     int update(Visit visit);
-    // trebuie să aibă id-ul populat
-    // returnează numărul de rânduri afectate
-    // ar trebui să afecteze un singur rând
+
 
     @Delete
     int delete(Visit visit);
-    // la fel ca update
 
-    // returneaza -1 in caz de eroare
+    @Query("SELECT MIN(rating) from visits")
+    int getMin();
+
+    @Query("SELECT MAX(rating) from visits")
+    int getMax();
+
+    @Query("SELECT AVG(rating) from visits")
+    int getAvg();
+
+
 }

@@ -22,11 +22,11 @@ public class VisitService {
         taskRunner = new AsyncTaskRunner();
     }
 
-    public void getAll(Callback<List<Visit>> callback) {
+    public void getAll(String user, Callback<List<Visit>> callback) {
         Callable<List<Visit>> callable = new Callable<List<Visit>>() {
             @Override
             public List<Visit> call() throws Exception {
-                return visitDao.getAll();
+                return visitDao.getAll(user);
             }
         };
         taskRunner.executeAsync(callable, callback);
@@ -80,6 +80,36 @@ public class VisitService {
                     return -1;
                 }
                 return visitDao.delete(visit);
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getMin(Callback<Integer> callback) {
+        Callable<Integer> callable = new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return visitDao.getMin();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getMax(Callback<Integer> callback) {
+        Callable<Integer> callable = new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return visitDao.getMax();
+            }
+        };
+        taskRunner.executeAsync(callable, callback);
+    }
+
+    public void getAvg(Callback<Integer> callback) {
+        Callable<Integer> callable = new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return visitDao.getAvg();
             }
         };
         taskRunner.executeAsync(callable, callback);
