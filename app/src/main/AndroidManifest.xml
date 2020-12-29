@@ -12,7 +12,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/app_name"
+        android:label="@string/application_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidproject">
@@ -33,7 +33,7 @@
         <activity android:name=".VisitedActivity" />
         <activity android:name=".SpendingsActivity" />
         <activity android:name=".RatingsActivity" />
-        <activity android:name=".ReportActivity"></activity>
+        <activity android:name=".ReportActivity"/>
         <activity android:name=".AccountActivity" />
         <activity android:name=".NavActivity" />
         <activity android:name=".LoginActivity" />

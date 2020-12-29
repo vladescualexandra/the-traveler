@@ -66,4 +66,5 @@
     <string name="nav_report">Report</string>
     <string name="channel_name">Channel Name</string>
     <string name="channel_description">Channel Description</string>
+    <string name="application_name">theTraveler</string>
 </resources>
