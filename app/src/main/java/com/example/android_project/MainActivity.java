@@ -2,7 +2,6 @@ package com.example.android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +17,10 @@ import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
 import com.example.android_project.adapters.AttractionAdapter;
 import com.example.android_project.data.Attraction;
-import com.example.android_project.data.AttractionsJSONParser;
+import com.example.android_project.util.AttractionsJSONParser;
 import com.example.android_project.network.HttpManager;
 import com.example.android_project.databases.model.UserAccount;
 import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
