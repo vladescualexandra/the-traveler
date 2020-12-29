@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -89,7 +90,15 @@ public class AddVisitedActivity extends AppCompatActivity {
 
         add.setOnClickListener(addNewVisitEvent());
 
+        ScrollView layout = findViewById(R.id.activity_add_visited);
+        AccountActivity.changeTheme(layout, setTheme());
     }
+
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
+    }
+
 
     private void addAttractionAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),

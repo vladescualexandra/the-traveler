@@ -2,6 +2,8 @@ package com.example.android_project;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;

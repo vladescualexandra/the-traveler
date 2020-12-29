@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     tools:openDrawer="start"
+    android:id="@+id/activity_main"
 >
 
 

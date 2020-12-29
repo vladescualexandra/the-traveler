@@ -8,7 +8,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8sp"
-    tools:context=".VisitedActivity">
+    tools:context=".VisitedActivity"
+    android:id="@+id/activity_visited">
 
     <Button
         android:id="@+id/visted_add_new_visit"

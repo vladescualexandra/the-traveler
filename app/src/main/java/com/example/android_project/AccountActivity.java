@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -14,11 +16,15 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.android_project.databases.service.FirebaseService;
 import com.example.android_project.databases.model.UserAccount;
+
+import android.graphics.Color;
+
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -41,6 +47,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private static final String LOGOUT_KEY = "logout_key";
 
+    ConstraintLayout layout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,8 +89,19 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         isChecked ? "Dark theme" : "Light theme",
                         Toast.LENGTH_SHORT).show();
+
+                changeTheme(layout, isChecked);
+
             }
         };
+    }
+
+    public static void changeTheme(android.view.ViewGroup layout, boolean on) {
+        if (on) {
+            layout.setBackgroundColor(Color.rgb(64, 61, 88));
+        } else {
+            layout.setBackgroundColor(Color.WHITE);
+        }
     }
 
     private CompoundButton.OnCheckedChangeListener setNotificationsEvent() {
@@ -95,15 +113,8 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         isChecked ? "Notifications enabled" : "Notifications disabled",
                         Toast.LENGTH_SHORT).show();
+                createNotificationChannel();
 
-                if (isChecked) {
-                    try {
-                        Thread.sleep(1000);
-                        createNotificationChannel();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         };
     }
@@ -130,6 +141,12 @@ public class AccountActivity extends AppCompatActivity {
                     .setContentText("What do you want to visit next?")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             NotificationManagerCompat notificationManager2 = NotificationManagerCompat.from(this);
 
             // notificationId is a unique int for each notification that you must define
@@ -147,6 +164,8 @@ public class AccountActivity extends AppCompatActivity {
         notifications = findViewById(R.id.switch_notifications);
         theme = findViewById(R.id.switch_theme);
         logout = findViewById(R.id.account_logout);
+        layout = findViewById(R.id.activity_account);
+
 
         intent = getIntent();
         user = (UserAccount) intent.getSerializableExtra(USER_KEY);
@@ -159,9 +178,15 @@ public class AccountActivity extends AppCompatActivity {
 
         notifications.setChecked(prefs.getBoolean(NOTIFICATIONS, false));
         theme.setChecked(prefs.getBoolean(THEME, false));
+        changeTheme(layout, setTheme());
 
         notifications.setOnCheckedChangeListener(setNotificationsEvent());
         theme.setOnCheckedChangeListener(setThemeEvent());
         logout.setOnClickListener(logoutEvent());
+    }
+
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
     }
 }

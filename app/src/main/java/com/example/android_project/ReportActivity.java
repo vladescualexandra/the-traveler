@@ -3,6 +3,7 @@ package com.example.android_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.android_project.async.Callback;
@@ -45,7 +46,17 @@ public class ReportActivity extends AppCompatActivity {
         maxSpending = findViewById(R.id.report_spendings_max);
         avgSpending = findViewById(R.id.report_spendings_avg);
         totalSpending = findViewById(R.id.report_spendings_total);
+
+        ScrollView layout = findViewById(R.id.activity_report);
+        AccountActivity.changeTheme(layout, setTheme());
     }
+
+
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
+    }
+
 
     private void getDataFromDB() {
         visitService = new VisitService(getApplicationContext());

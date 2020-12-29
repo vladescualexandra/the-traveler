@@ -3,7 +3,6 @@ package com.example.android_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.android_project.databases.model.Visit;
@@ -22,15 +21,7 @@ public class RatingsActivity extends AppCompatActivity {
 
         Map<Integer, Integer> source = getSource(VisitedActivity.visitList);
 
-        for (Map.Entry<Integer, Integer> entry : source.entrySet()) {
-            String key = String.valueOf(entry.getKey());
-            String value = String.valueOf(entry.getValue());
-
-        }
-
-
         if (source != null) {
-
             RatingsChart view = new RatingsChart(getApplicationContext(), source);
             setContentView(view);
         } else {

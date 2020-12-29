@@ -47,6 +47,15 @@ public class NavActivity extends AppCompatActivity {
     private void initComponents() {
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
+
+        DrawerLayout layout = findViewById(R.id.drawer_layout);
+        AccountActivity.changeTheme(layout, setTheme());
+    }
+
+
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
     }
 
     public NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
@@ -60,6 +69,8 @@ public class NavActivity extends AppCompatActivity {
             }
         };
     }
+
+
 
     public static Intent openActivityFromNavMenu(Context context, int id) {
         Intent intent = null;

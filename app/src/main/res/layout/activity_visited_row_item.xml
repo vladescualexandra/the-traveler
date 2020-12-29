@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8sp"
+    android:id="@+id/activity_visited_row_item"
     >
 
 

@@ -2,6 +2,7 @@ package com.example.android_project;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -71,8 +73,14 @@ public class VisitedActivity extends AppCompatActivity {
         list.setOnItemClickListener(updateVisitEventListener());
         list.setOnItemLongClickListener(deleteVisitEventListener());
 
+        LinearLayout layout = findViewById(R.id.activity_visited);
+        AccountActivity.changeTheme(layout, setTheme());
     }
 
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
+    }
 
     private Callback<List<Visit>> getAllVisitsFromDBCallback() {
         return new Callback<List<Visit>>() {

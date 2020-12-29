@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.android_project.async.AsyncTaskRunner;
 import com.example.android_project.async.Callback;
@@ -145,8 +146,16 @@ public class MainActivity extends AppCompatActivity {
         listViewAttractions = findViewById(R.id.main_list);
         listViewAttractions.setVisibility(View.INVISIBLE);
         initList(); // add adapter
+
+        ConstraintLayout layout = findViewById(R.id.activity_main);
+        AccountActivity.changeTheme(layout, setTheme());
+
     }
 
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
+    }
 
 }
 
