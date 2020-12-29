@@ -75,6 +75,14 @@
 
     </style>
 
+    <style name="account_option">
+        <item name="android:textColor">#5D737E</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">8sp</item>
+
+    </style>
+
     <style name="card">
         <item name="android:textColor">@color/piggy_pink</item>
         <item name="backgroundTint">@color/french_pink</item>

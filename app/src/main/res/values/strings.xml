@@ -64,4 +64,6 @@
     <string name="report_spending_avg">The average amount you spent: %1$.2f</string>
     <string name="report_spending_total">The total amount you spent: %1$.2f</string>
     <string name="nav_report">Report</string>
+    <string name="channel_name">Channel Name</string>
+    <string name="channel_description">Channel Description</string>
 </resources>

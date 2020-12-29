@@ -1,15 +1,21 @@
 package com.example.android_project;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.android_project.databases.service.FirebaseService;
 import com.example.android_project.databases.model.UserAccount;
@@ -19,6 +25,7 @@ public class AccountActivity extends AppCompatActivity {
     public static final String SETTINGS = "settiings";
     public static final String THEME = "theme";
     public static final String NOTIFICATIONS = "notifications";
+    private static final String CHANNEL_ID = "Channel ID";
     private static Intent intent;
     private static final String USER_KEY = "user_key";
     private static SharedPreferences prefs;
@@ -72,6 +79,9 @@ public class AccountActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor.putBoolean(THEME, isChecked);
                 editor.apply();
+                Toast.makeText(getApplicationContext(),
+                        isChecked ? "Dark theme" : "Light theme",
+                        Toast.LENGTH_SHORT).show();
             }
         };
     }
@@ -82,8 +92,52 @@ public class AccountActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor.putBoolean(NOTIFICATIONS, isChecked);
                 editor.apply();
+                Toast.makeText(getApplicationContext(),
+                        isChecked ? "Notifications enabled" : "Notifications disabled",
+                        Toast.LENGTH_SHORT).show();
+
+                if (isChecked) {
+                    try {
+                        Thread.sleep(1000);
+                        createNotificationChannel();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
+    }
+
+    // Source: https://developer.android.com/training/notify-user/build-notification
+    private void createNotificationChannel() {
+        // ONLY ON API 26+
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                    .setSmallIcon(R.drawable.logo)
+                    .setContentTitle("See what you are missing out!")
+                    .setContentText("What do you want to visit next?")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            NotificationManagerCompat notificationManager2 = NotificationManagerCompat.from(this);
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(1, builder.build());
+
+        }
+
+
     }
 
     private void initComponents() {
@@ -109,7 +163,5 @@ public class AccountActivity extends AppCompatActivity {
         notifications.setOnCheckedChangeListener(setNotificationsEvent());
         theme.setOnCheckedChangeListener(setThemeEvent());
         logout.setOnClickListener(logoutEvent());
-
-
     }
 }
