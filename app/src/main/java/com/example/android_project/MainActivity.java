@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setNavigationView(navigationView);
+    }
+
+    private void setNavigationView(NavigationView navigationView) {
         String usernameText = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE)
                 .getString(StartActivity.USERNAME, null);
         String emailText = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE)
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         if (emailText != null) {
             email.setText(emailText);
         }
+
+        AccountActivity.changeTheme(navigationView, setTheme());
     }
 
 

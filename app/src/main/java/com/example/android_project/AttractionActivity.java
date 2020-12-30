@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,14 @@ public class AttractionActivity extends AppCompatActivity {
         details = findViewById(R.id.attraction_details);
         maps = findViewById(R.id.attraction_maps);
         maps.setOnClickListener(openMapsEventListener());
+
+        ScrollView layout = findViewById(R.id.activity_attraction);
+        AccountActivity.changeTheme(layout, setTheme());
+    }
+
+    private boolean setTheme() {
+        return getSharedPreferences(AccountActivity.SETTINGS, MODE_PRIVATE)
+                .getBoolean(AccountActivity.THEME, false);
     }
 
     private View.OnClickListener openMapsEventListener() {
