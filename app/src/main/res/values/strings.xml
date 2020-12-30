@@ -67,4 +67,8 @@
     <string name="channel_name">Channel Name</string>
     <string name="channel_description">Channel Description</string>
     <string name="application_name">theTraveler</string>
+    <string name="statistics_no_visits">You have no visits.</string>
+    <string name="report_no_visits">You have no visits!</string>
+    <string name="statistics_minimum_three_visits">You need at least 3 visits for this graph!</string>
+    <string name="statistics_not_enough_visits">You don\'t have enough visits.</string>
 </resources>

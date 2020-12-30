@@ -3,8 +3,10 @@ package com.example.android_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android_project.async.Callback;
 import com.example.android_project.databases.model.Visit;
@@ -64,14 +66,18 @@ public class ReportActivity extends AppCompatActivity {
 
         String user = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE).getString(StartActivity.ID, null);
 
-        visitService.getMin(user, getMinRatingFromDBCallback());
-        visitService.getMax(user, getMaxRatingFromDBCallback());
-        visitService.getAvg(user, getAvgRatingFromDBCallback());
+        try {
+            visitService.getMin(user, getMinRatingFromDBCallback());
+            visitService.getMax(user, getMaxRatingFromDBCallback());
+            visitService.getAvg(user, getAvgRatingFromDBCallback());
 
-        spendingService.getMin(user, getMinSpendingFromDBCallback());
-        spendingService.getMax(user, getMaxSpendingFromDBCallback());
-        spendingService.getAvg(user, getAvgSpendingFromDBCallback());
-        spendingService.getTotal(user, getTotalSpendingFromDBCallback());
+            spendingService.getMin(user, getMinSpendingFromDBCallback());
+            spendingService.getMax(user, getMaxSpendingFromDBCallback());
+            spendingService.getAvg(user, getAvgSpendingFromDBCallback());
+            spendingService.getTotal(user, getTotalSpendingFromDBCallback());
+        } catch (Error e) {
+            Log.e("services", e.getMessage());
+        }
     }
 
 
@@ -83,6 +89,10 @@ public class ReportActivity extends AppCompatActivity {
                     minRating.setText(getString(R.string.report_rating_min, result));
                 } else {
                     minRating.setText(getString(R.string.report_rating_min, -1));
+                    Toast.makeText(getApplicationContext(),
+                            R.string.report_no_visits,
+                            Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         };
@@ -96,6 +106,10 @@ public class ReportActivity extends AppCompatActivity {
                     maxRating.setText(getString(R.string.report_rating_max, result));
                 } else {
                     maxRating.setText(getString(R.string.report_rating_max, -1));
+                    Toast.makeText(getApplicationContext(),
+                            R.string.report_no_visits,
+                            Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         };
@@ -121,7 +135,7 @@ public class ReportActivity extends AppCompatActivity {
                 if (result != null) {
                     minSpending.setText(getString(R.string.report_spending_min, result));
                 } else {
-                    minSpending.setText(getString(R.string.report_spending_min, -1));
+                    minSpending.setText(getString(R.string.report_spending_min, 0.0f));
                 }
             }
         };
@@ -134,7 +148,11 @@ public class ReportActivity extends AppCompatActivity {
                 if (result != null) {
                     maxSpending.setText(getString(R.string.report_spending_max, result));
                 } else {
-                    maxSpending.setText(getString(R.string.report_spending_max, -1));
+                    maxSpending.setText(getString(R.string.report_spending_max, 0.0f));
+                    Toast.makeText(getApplicationContext(),
+                            R.string.report_no_visits,
+                            Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         };
@@ -148,7 +166,7 @@ public class ReportActivity extends AppCompatActivity {
                 if (result != null) {
                     avgSpending.setText(getString(R.string.report_spending_avg, result));
                 } else {
-                    avgSpending.setText(getString(R.string.report_spending_avg, -1));
+                    avgSpending.setText(getString(R.string.report_spending_avg, 0.0f));
                 }
             }
         };
@@ -161,7 +179,7 @@ public class ReportActivity extends AppCompatActivity {
                 if (result != null) {
                     totalSpending.setText(getString(R.string.report_spending_total, result));
                 } else {
-                    totalSpending.setText(getString(R.string.report_spending_total, -1));
+                    totalSpending.setText(getString(R.string.report_spending_total, 0.0f));
                 }
             }
         };

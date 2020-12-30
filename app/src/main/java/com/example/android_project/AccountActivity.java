@@ -113,8 +113,8 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         isChecked ? "Notifications enabled" : "Notifications disabled",
                         Toast.LENGTH_SHORT).show();
-                createNotificationChannel();
 
+                createNotificationChannel();
             }
         };
     }
@@ -141,12 +141,6 @@ public class AccountActivity extends AppCompatActivity {
                     .setContentText("What do you want to visit next?")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             NotificationManagerCompat notificationManager2 = NotificationManagerCompat.from(this);
 
             // notificationId is a unique int for each notification that you must define
@@ -155,6 +149,11 @@ public class AccountActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void initComponents() {

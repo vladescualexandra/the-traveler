@@ -5,30 +5,47 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.android_project.async.Callback;
 import com.example.android_project.databases.model.Visit;
+import com.example.android_project.databases.service.VisitService;
 import com.example.android_project.util.RatingsChart;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RatingsActivity extends AppCompatActivity {
 
+    List<Visit> visits = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Map<Integer, Integer> source = getSource(VisitedActivity.visitList);
+        VisitService visitService = new VisitService(getApplicationContext());
+        String user = getSharedPreferences(StartActivity.USER_KEY, MODE_PRIVATE)
+                .getString(StartActivity.ID, null);
+        visitService.getAll(user, getRatingsCallback());
+    }
 
-        if (source != null) {
-            RatingsChart view = new RatingsChart(getApplicationContext(), source);
-            setContentView(view);
-        } else {
-            finish();
-            Toast.makeText(getApplicationContext(),
-                    "Open Visited first, please!", Toast.LENGTH_LONG).show();
-        }
+    private Callback<List<Visit>> getRatingsCallback() {
+        return new Callback<List<Visit>>() {
+            @Override
+            public void runResultOnUIThread(List<Visit> result) throws JSONException {
+                if (result != null) {
+                    visits.addAll(result);
+                    Map<Integer, Integer> source = getSource(visits);
+                    RatingsChart view = new RatingsChart(getApplicationContext(), source);
+                    setContentView(view);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.statistics_no_visits, Toast.LENGTH_LONG).show();
+                }
+            }
+        };
     }
 
     private Map<Integer, Integer> getSource(List<Visit> visits) {

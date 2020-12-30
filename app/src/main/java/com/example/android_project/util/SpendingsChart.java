@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.android_project.AccountActivity;
+import com.example.android_project.R;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,9 @@ public class SpendingsChart extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (source == null || source.isEmpty()) {
-            return;
+                drawNoGraph(canvas);
+        } else if (source.size() < 3) {
+            drawNoGraph(canvas);
         } else {
 
             float distanceBetweenPoints = (float) getWidth() / source.size();
@@ -45,17 +48,18 @@ public class SpendingsChart extends View {
 
             }
 
-            if (source.size() > 3) {
-                for (int i = 1; i < source.size() - 1; i++) {
-                    drawLine(canvas, i - 1, distanceBetweenPoints,
-                            maxSpending, source.get(i - 1), source.get(i));
-                }
-            } else {
-                Toast.makeText(context,
-                        "Not enough visits.",
-                        Toast.LENGTH_LONG).show();
+            for (int i = 1; i < source.size() - 1; i++) {
+                drawLine(canvas, i - 1, distanceBetweenPoints,
+                        maxSpending, source.get(i - 1), source.get(i));
             }
+
         }
+    }
+
+    private void drawNoGraph(Canvas canvas) {
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(50.0f);
+        canvas.drawText(getContext().getString(R.string.statistics_not_enough_visits), getWidth() / 4, getHeight() / 2, paint);
     }
 
     private void drawLine(Canvas canvas, int position,

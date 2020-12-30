@@ -8,6 +8,8 @@ import android.view.View;
 
 import android.graphics.Color;
 
+import com.example.android_project.R;
+
 import java.util.Map;
 
 public class RatingsChart extends View {
@@ -38,7 +40,7 @@ public class RatingsChart extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (source == null || source.isEmpty()) {
-            return;
+            drawNoGraph(canvas);
         } else {
             float widthBar = (float) getWidth() / source.size();
 
@@ -51,6 +53,12 @@ public class RatingsChart extends View {
             }
             drawValues(canvas, widthBar, maxValue);
         }
+    }
+
+    private void drawNoGraph(Canvas canvas) {
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(50.0f);
+        canvas.drawText(getContext().getString(R.string.statistics_no_visits), getWidth() / 3, getHeight() / 2, paint);
     }
 
     private void drawValues(Canvas canvas, float widthBar, int maxValue) {
