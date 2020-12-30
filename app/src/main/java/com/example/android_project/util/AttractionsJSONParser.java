@@ -71,8 +71,8 @@ public class AttractionsJSONParser {
 
     private static Coordinates getCoordinates(JSONObject jsonObject) {
         try {
-            double lat = (double) jsonObject.getLong(Coordinates.LATITUDE);
-            double lng = (double) jsonObject.getLong(Coordinates.LONGITUDE);
+            double lat = jsonObject.getDouble(Coordinates.LATITUDE);
+            double lng = jsonObject.getDouble(Coordinates.LONGITUDE);
             String marker = jsonObject.getString(Coordinates.MARKER);
             return new Coordinates(lat, lng, marker);
         } catch (JSONException e) {

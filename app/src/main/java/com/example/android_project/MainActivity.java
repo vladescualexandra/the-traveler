@@ -3,6 +3,7 @@ package com.example.android_project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static UserAccount user;
     private static final String USER_KEY = "user_key";
 
-    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/RGQE";
+    private static final String URL_ATTRACTIONS = "https://jsonkeeper.com/b/EN8Q";
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
     @Override
@@ -112,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         listViewAttractions.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+
+        for (int i=0; i<attractionList.size(); i++) {
+            Log.e("Atr. " + i, attractionList.get(i).getCoordinates().getLat() + " , " + attractionList.get(i).getCoordinates().getLng());
+        }
+
     }
 
     private void getAttractionsFromUrl() {
