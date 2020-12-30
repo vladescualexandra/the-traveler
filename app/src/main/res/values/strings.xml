@@ -71,4 +71,6 @@
     <string name="report_no_visits">You have no visits!</string>
     <string name="statistics_minimum_three_visits">You need at least 3 visits for this graph!</string>
     <string name="statistics_not_enough_visits">You don\'t have enough visits.</string>
+    <string name="username_not_long_enough">Username not long enough.</string>
+    <string name="password_not_long_enough">Password not long enough.</string>
 </resources>

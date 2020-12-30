@@ -3,6 +3,7 @@ package com.example.android_project;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +14,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_project.async.AsyncTaskRunner;
+import com.example.android_project.async.Callback;
+import com.example.android_project.databases.model.Visit;
 import com.example.android_project.databases.service.FirebaseService;
 import com.example.android_project.databases.model.UserAccount;
+
+import org.json.JSONException;
+
+import java.util.List;
+import java.util.concurrent.Callable;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private static SharedPreferences prefs;
     private static SharedPreferences.Editor editor;
     private static final String USER_KEY = "user_key";
-    private static UserAccount user;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,21 +47,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initComponents();
     }
-
-    private void login() {
-        Intent intent = new Intent(getApplicationContext(),
-                MainActivity.class);
-        intent.putExtra(USER_KEY, FirebaseService.user);
-
-        editor.putString(StartActivity.ID, FirebaseService.user.getId());
-        editor.putString(StartActivity.USERNAME, FirebaseService.user.getUsername());
-        editor.putString(StartActivity.EMAIL, FirebaseService.user.getEmail());
-        editor.putString(StartActivity.PASSWORD, FirebaseService.user.getPassword());
-        editor.apply();
-
-        startActivity(intent);
-    }
-
 
     private View.OnClickListener signInEvent() {
 
@@ -66,30 +58,58 @@ public class LoginActivity extends AppCompatActivity {
                 input_password = password.getText().toString().trim();
 
                 if (validateInput(input_username, input_password)) {
-
-                        StartActivity.firebaseService.select(input_username, input_password);
-                        if (FirebaseService.user != null) {
-                            login();
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    getString(R.string.login_error_account),
-                                    Toast.LENGTH_LONG).show();
+                    Callable<UserAccount> callable = new Callable<UserAccount>() {
+                        @Override
+                        public UserAccount call() throws Exception {
+                            return StartActivity.firebaseService.select(input_username, input_password);
                         }
+                    };
 
+                    AsyncTaskRunner taskRunner = new AsyncTaskRunner();
+                    taskRunner.executeAsync(callable, loginCallback());
                 }
             }
         };
     }
 
+    private Callback<UserAccount> loginCallback() {
+        return new Callback<UserAccount>() {
+            @Override
+            public void runResultOnUIThread(UserAccount result) throws JSONException {
+                if (result != null) {
+                    Intent intent = new Intent(getApplicationContext(),
+                            MainActivity.class);
+                    intent.putExtra(USER_KEY, FirebaseService.user);
+                    saveUser();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.login_error_account,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+    }
+
+    private void saveUser() {
+        editor = prefs.edit();
+        editor.putString(StartActivity.ID, FirebaseService.user.getId());
+        editor.putString(StartActivity.USERNAME, FirebaseService.user.getUsername());
+        editor.putString(StartActivity.EMAIL, FirebaseService.user.getEmail());
+        editor.putString(StartActivity.PASSWORD, FirebaseService.user.getPassword());
+        editor.apply();
+    }
+
+
     private boolean validateInput(String input_username, String input_password) {
         if (input_username.length() < 3) {
-            username.setError("Username not long enough.");
+            username.setError(getString(R.string.username_not_long_enough));
             return false;
         } else {
             username.setError(null);
         }
         if (input_password.length() < 3) {
-            password.setError("Password not long enough.");
+            password.setError(getString(R.string.password_not_long_enough));
             return false;
         } else {
             password.setError(null);
@@ -123,8 +143,6 @@ public class LoginActivity extends AppCompatActivity {
         signUp.setOnClickListener(signUpEvent());
 
         prefs = getSharedPreferences(USER_KEY, MODE_PRIVATE);
-        editor = prefs.edit();
-
     }
 
 }
