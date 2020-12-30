@@ -56,7 +56,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     if (StartActivity.firebaseService.upsert(user)) {
                         Toast.makeText(getApplicationContext(),
-                                user.getId(),
+                                R.string.signup_account_created,
                                 Toast.LENGTH_LONG)
                                 .show();
                         returnToLogin();

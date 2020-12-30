@@ -70,11 +70,8 @@ public class AddVisitedActivity extends AppCompatActivity {
             rating.setRating(0);
         }
 
-
         if (spending.getAmount() >= 0) {
             amount.setText(String.valueOf(spending.getAmount()));
-        } else {
-            amount.setText("none");
         }
 
         add.setText(R.string.add_visit_save);
@@ -85,6 +82,7 @@ public class AddVisitedActivity extends AppCompatActivity {
         addAttractionAdapter();
         amount = findViewById(R.id.add_visited_spending);
         date = findViewById(R.id.add_visited_date);
+        date.setMaxDate(System.currentTimeMillis());
         rating = findViewById(R.id.add_visited_rating);
         add = findViewById(R.id.add_visited_btn_add);
 
@@ -121,8 +119,13 @@ public class AddVisitedActivity extends AppCompatActivity {
                 visit.setRating((int) rating.getRating());
 
                 spending.setUser(userID);
-                spending.setAmount(Double.parseDouble(amount.getText().toString().trim()));
 
+                try {
+                    Double money = Double.parseDouble(amount.getText().toString().trim());
+                    spending.setAmount(money);
+                } catch (NumberFormatException e) {
+                    spending.setAmount(0.0);
+                }
 
                 intent.putExtra(VISIT_KEY, visit);
                 intent.putExtra(SPENDING_KEY, spending);

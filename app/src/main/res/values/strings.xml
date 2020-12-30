@@ -49,7 +49,7 @@
     <string name="add_visit_save">SAVE</string>
     <string name="default_cost">0.00$</string>
     <string name="visited_amount">%1$d €</string>
-    <string name="add_visited_spending">How much did you spend?</string>
+    <string name="add_visited_spending">How much money did you spend?</string>
     <string name="nav_statistics">Statistics</string>
     <string name="statistics_ratings">Statistics: Ratings</string>
     <string name="statistics_spendings">Statistics: Spendings</string>
