@@ -1,4 +1,4 @@
-# android-project
+# theTraveler
 
 Aplicație pentru turiștii orașului București.
 
