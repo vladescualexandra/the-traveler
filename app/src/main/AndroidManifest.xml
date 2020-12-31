@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android_project">
+    package="com.example.theTraveler">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -28,19 +28,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".AddVisitedActivity" />
-        <activity android:name=".VisitedActivity" />
-        <activity android:name=".SpendingsActivity" />
-        <activity android:name=".RatingsActivity" />
-        <activity android:name=".ReportActivity"/>
-        <activity android:name=".AccountActivity" />
-        <activity android:name=".NavActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".AttractionActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name="com.example.theTraveler.MapsActivity" />
+        <activity android:name="com.example.theTraveler.AddVisitedActivity" />
+        <activity android:name="com.example.theTraveler.VisitedActivity" />
+        <activity android:name="com.example.theTraveler.SpendingsActivity" />
+        <activity android:name="com.example.theTraveler.RatingsActivity" />
+        <activity android:name="com.example.theTraveler.ReportActivity"/>
+        <activity android:name="com.example.theTraveler.AccountActivity" />
+        <activity android:name="com.example.theTraveler.NavActivity" />
+        <activity android:name="com.example.theTraveler.LoginActivity" />
+        <activity android:name="com.example.theTraveler.SignupActivity" />
+        <activity android:name="com.example.theTraveler.MainActivity" />
+        <activity android:name="com.example.theTraveler.AttractionActivity" />
+        <activity android:name="com.example.theTraveler.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
